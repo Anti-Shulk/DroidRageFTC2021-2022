@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.teamcode.Hardware69;
     /**
      * This file provides basic Telop driving for a Pushbot robot.
      * The code is structured as an Iterative OpMode
@@ -26,7 +27,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class StartDrive extends OpMode{
 
     /* Declare OpMode members. */
-    HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
+    Hardware69 robot       = new Hardware69(); // use the class created to define a Pushbot's hardware
     double          clawOffset  = 0.0 ;                  // Servo mid position
     final double    CLAW_SPEED  = 0.5 ;                 // sets rate to move servo
 
@@ -44,9 +45,9 @@ public class StartDrive extends OpMode{
         telemetry.addData("Sup Nerd", "Hello Driver");    //
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
+
+     //* Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+
     @Override
     public void init_loop() {
     }
@@ -71,6 +72,8 @@ public class StartDrive extends OpMode{
         right = -gamepad1.right_stick_y;
 
         robot.leftDrive.setPower(left);
+        robot.backleftDrive.setPower(left);
+        robot.backrightDrive.setPower(right);
         robot.rightDrive.setPower(right);
 
         // Use gamepad left & right Bumpers to open and close the claw
