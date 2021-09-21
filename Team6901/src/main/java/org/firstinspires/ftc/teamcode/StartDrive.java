@@ -6,9 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-public class StartDrive
-{
     /**
      * This file provides basic Telop driving for a Pushbot robot.
      * The code is structured as an Iterative OpMode
@@ -26,7 +23,7 @@ public class StartDrive
 
     @TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
     @Disabled
-    public class PushbotTeleopTank_Iterative extends OpMode{
+    public class StartDrive extends OpMode{
 
         /* Declare OpMode members. */
         HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
@@ -108,5 +105,3 @@ public class StartDrive
         public void stop() {
         }
     }
-
-}
