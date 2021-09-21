@@ -41,7 +41,7 @@ public class StartDrive extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Sup Nerd", "Hello Driver");    //
     }
 
     /*
