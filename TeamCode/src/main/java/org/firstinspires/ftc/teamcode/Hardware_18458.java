@@ -18,10 +18,14 @@ public class Hardware_18458
     //hwmap is the hardwaremap
     HardwareMap hwMap = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final ElapsedTime period = new ElapsedTime();
 =======
     private ElapsedTime period = new ElapsedTime();
 >>>>>>> 0d771e9 (Hardware for drivetrain)
+=======
+    private final ElapsedTime period = new ElapsedTime();
+>>>>>>> 0d5b5ec (Created Drivetrain)
 
     public Hardware_18458(){
 
