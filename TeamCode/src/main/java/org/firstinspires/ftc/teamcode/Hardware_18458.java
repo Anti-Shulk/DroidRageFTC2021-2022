@@ -17,7 +17,7 @@ public class Hardware_18458
 
     //hwmap is the hardwaremap
     HardwareMap hwMap = null;
-    private ElapsedTime period = new ElapsedTime();
+    private final ElapsedTime period = new ElapsedTime();
 
     public Hardware_18458(){
 
