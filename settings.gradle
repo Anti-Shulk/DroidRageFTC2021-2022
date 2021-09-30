@@ -1,2 +1,6 @@
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 608dc49 (added new settings.gradle for 7.0 update)
 include ':Tfod'
 include ':RobotCore', ':Blocks', ':RobotServer', ':FtcRobotController', ':FtcCommon', ':Hardware', ':Inspection', ':TeamCode', ':OpenRC'
