@@ -69,10 +69,10 @@ public class BasicOpMode_Linear10862 extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFront  = hardwareMap.get(DcMotor.class, "left_drive");
-        leftRear = hardwareMap.get(DcMotor.class, "right_drive");
-        rightFront = hardwareMap.get(DcMotor.class, "right_drive");
-        rightRear = hardwareMap.get(DcMotor.class, "right_drive");
+        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
