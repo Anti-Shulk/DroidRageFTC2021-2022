@@ -50,15 +50,14 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode10862", group="Linear Opmode")
-public class BasicOpMode_Linear10862 extends LinearOpMode {
+@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@Disabled
+public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFront = null;
-    private DcMotor leftRear = null;
-    private DcMotor rightFront = null;
-    private DcMotor rightRear = null;
+    private DcMotor leftDrive = null;
+    private DcMotor rightDrive = null;
 
     @Override
     public void runOpMode() {
@@ -68,17 +67,13 @@ public class BasicOpMode_Linear10862 extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
+        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -96,7 +91,7 @@ public class BasicOpMode_Linear10862 extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive =  -gamepad1.left_stick_y;
+            double drive = -gamepad1.left_stick_y;
             double turn  =  gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
@@ -107,10 +102,8 @@ public class BasicOpMode_Linear10862 extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            leftFront.setPower(leftPower);
-            leftRear.setPower(leftPower);
-            rightFront.setPower(rightPower);
-            rightRear.setPower(rightPower);
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
