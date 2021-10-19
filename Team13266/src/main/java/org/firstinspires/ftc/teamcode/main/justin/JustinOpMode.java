@@ -55,10 +55,15 @@ import com.qualcomm.robotcore.util.Range;
 public class JustinOpMode extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+
+    // Drivetrain
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
     private DcMotorEx rightFront;
     private DcMotorEx rightRear;
+
+    // Intake
+    private DcMotorEx intakeMotor;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -69,38 +74,59 @@ public class JustinOpMode extends OpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+
+        // Drivetrain Initialization
         DcMotorEx leftFront  = hardwareMap.get(DcMotorEx.class, "leftFront");
         DcMotorEx leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         DcMotorEx rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
         DcMotorEx rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
+        // Intake Initialization
+        DcMotorEx intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
+
+        // Drivetrain Motor Directions
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
+        // Intake Motor Direction
+        intakeMotor.setDirection(DcMotorEx.Direction.FORWARD);
+
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
+
+        // Drivetrain Zero Power Behavior
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Intake Zero Power Behavior
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         // Turn on Run Using Encoder to use the built in PID controller
+
+        // Drivetrain Encoders
         leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        // Reset Encoders before startind OpMode
+        // Reset Encoders before starting OpMode
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Tell the driver that initialization is complete.
+        // Intake Encoders and reset
+        intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
 
@@ -125,6 +151,8 @@ public class JustinOpMode extends OpMode {
     @Override
     public void loop() {
 
+        // Drive Train Code
+
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
@@ -141,6 +169,22 @@ public class JustinOpMode extends OpMode {
         leftRear.setPower(leftPower);
         rightFront.setPower(rightPower);
         rightRear.setPower(rightPower);
+
+        // Intake Code
+        double intakePower = 0;
+
+        if (intakePower == 0 && gamepad2.right_bumper) {
+            intakeMotor.setPower(1);
+            intakePower = 1;
+        }
+
+        if (intakePower == 1 && !gamepad2.right_bumper) {
+            intakeMotor.setPower(0);
+            intakePower = 0;
+        }
+
+        // Arm Motor Code
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
