@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Lucky_practice_drivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Practice Auto", group="Linear Opmode")
 @Disabled
 public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
 
@@ -61,6 +61,10 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     private DcMotor rightRear = null;
 
     @Override
+
+    //Can I leave this here, so the project errors can be supressed?
+    @SuppressWarnings("FieldCanBeLocal")
+
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
