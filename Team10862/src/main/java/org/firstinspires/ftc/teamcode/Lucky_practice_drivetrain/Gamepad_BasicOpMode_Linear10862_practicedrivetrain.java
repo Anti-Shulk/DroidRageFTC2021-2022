@@ -60,6 +60,10 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
     private DcMotor rightRear = null;
 
     @Override
+
+    //Can I leave this here, so the project errors can be supressed?
+    @SuppressWarnings("FieldCanBeLocal")
+
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
