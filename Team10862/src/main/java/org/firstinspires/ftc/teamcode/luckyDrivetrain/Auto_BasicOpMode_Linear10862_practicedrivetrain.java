@@ -63,7 +63,11 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     @Override
 
     //Can I leave this here, so the project errors can be supressed?
+    // just fix the errors, but ill leave it
     @SuppressWarnings("FieldCanBeLocal")
+
+    // So one problem is that there is no public void init () method. the init method runs once and it where your supposed to initialize the drive train.
+    // It isnt nesessarily wrong but it might help a bit with stuff
 
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
