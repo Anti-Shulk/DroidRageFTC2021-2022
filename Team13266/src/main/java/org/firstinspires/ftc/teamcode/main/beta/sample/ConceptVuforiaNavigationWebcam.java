@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.main.justin.sample;
+package org.firstinspires.ftc.teamcode.main.beta.sample;
 
 import android.graphics.Bitmap;
 
