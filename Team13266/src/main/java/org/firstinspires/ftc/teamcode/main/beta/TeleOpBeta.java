@@ -98,7 +98,7 @@ public class TeleOpBeta extends OpMode {
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Arm Motor Directions
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -110,7 +110,7 @@ public class TeleOpBeta extends OpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Arm Motor Zero Power Behavior
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Turn on Run Using Encoder to use the built in PID controller
 
         // Drivetrain Encoders
