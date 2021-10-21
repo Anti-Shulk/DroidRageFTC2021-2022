@@ -62,8 +62,6 @@ public class JustinOpMode extends OpMode {
     private DcMotorEx rightFront;
     private DcMotorEx rightRear;
 
-    // Intake
-    private DcMotorEx intakeMotor;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -81,8 +79,6 @@ public class JustinOpMode extends OpMode {
         DcMotorEx rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
         DcMotorEx rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        // Intake Initialization
-        DcMotorEx intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -93,8 +89,6 @@ public class JustinOpMode extends OpMode {
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
-        // Intake Motor Direction
-        intakeMotor.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -104,9 +98,6 @@ public class JustinOpMode extends OpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Intake Zero Power Behavior
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // Turn on Run Using Encoder to use the built in PID controller
 
@@ -122,9 +113,6 @@ public class JustinOpMode extends OpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Intake Encoders and reset
-        intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -169,19 +157,6 @@ public class JustinOpMode extends OpMode {
         leftRear.setPower(leftPower);
         rightFront.setPower(rightPower);
         rightRear.setPower(rightPower);
-
-        // Intake Code
-        double intakePower = 0;
-
-        if (intakePower == 0 && gamepad2.right_bumper) {
-            intakeMotor.setPower(1);
-            intakePower = 1;
-        }
-
-        if (intakePower == 1 && !gamepad2.right_bumper) {
-            intakeMotor.setPower(0);
-            intakePower = 0;
-        }
 
         // Arm Motor Code
 
