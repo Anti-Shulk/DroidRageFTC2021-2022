@@ -27,13 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Lucky_practice_drivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -49,10 +48,10 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode10862", group="Linear Opmode")
-public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
+@Autonomous(name="Practice Auto", group="Linear Opmode")
 
-    // Declare OpMode members.
+public class Testing_practice_drivtrain extends LinearOpMode {
+
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFront = null;
     private DcMotor leftRear = null;
@@ -70,7 +69,8 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
+        // step (using the FTC Robot Controller app on the phone)
+
         leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
@@ -80,7 +80,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
         rightRear.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
@@ -90,30 +90,16 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
-            double rightPower;
+            sleep(1000);
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
+            // Move Front
+            leftFront.setPower(0.5);
+            leftRear.setPower(0.5);
+            rightFront.setPower(0.5);
+            rightRear.setPower(0.5);
 
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-            // Send calculated power to wheels
-            leftFront.setPower(leftPower);
-            leftRear.setPower(leftPower);
-            rightFront.setPower(rightPower);
-            rightRear.setPower(rightPower);
-
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.update();
+            sleep(500);
+            stop();
         }
     }
 }

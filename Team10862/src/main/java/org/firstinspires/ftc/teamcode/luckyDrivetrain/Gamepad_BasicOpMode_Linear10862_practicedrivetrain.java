@@ -27,13 +27,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Lucky_practice_drivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -49,9 +49,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
-public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
+@TeleOp(name="Basic: Linear OpMode10862", group="Linear Opmode")
+public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -61,14 +60,17 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     private DcMotor rightRear = null;
 
     @Override
+
+    //Can I leave this here, so the project errors can be supressed?
+    @SuppressWarnings("FieldCanBeLocal")
+
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone)
-
+        // step (using the FTC Robot Controller app on the phone).
         leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
@@ -88,37 +90,30 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Move Front
-            leftFront.setPower(1);
-            leftRear.setPower(1);
-            rightFront.setPower(1);
-            rightRear.setPower(1);
+            // Setup a variable for each drive wheel to save power level for telemetry
+            double leftPower;
+            double rightPower;
 
-            sleep(1000);
+            // Choose to drive using either Tank Mode, or POV Mode
+            // Comment out the method that's not used.  The default below is POV.
 
-            //Move Left
-            leftFront.setPower(-1);
-            leftRear.setPower(-1);
-            rightFront.setPower(1);
-            rightRear.setPower(1);
+            // POV Mode uses left stick to go forward, and right stick to turn.
+            // - This uses basic math to combine motions and is easier to drive straight.
+            double drive = -gamepad1.left_stick_y;
+            double turn  =  gamepad1.right_stick_x;
+            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-            sleep(500);
-            stop();
+            // Send calculated power to wheels
+            leftFront.setPower(leftPower);
+            leftRear.setPower(leftPower);
+            rightFront.setPower(rightPower);
+            rightRear.setPower(rightPower);
 
-            //Move Right
-            leftFront.setPower(1);
-            leftRear.setPower(1);
-            rightFront.setPower(-1);
-            rightRear.setPower(-1);
-
-            //Move back
-            leftFront.setPower(-1);
-            leftRear.setPower(-1);
-            rightFront.setPower(-1);
-            rightRear.setPower(-1);
-
-            sleep(500);
-            stop();
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.update();
         }
     }
 }
