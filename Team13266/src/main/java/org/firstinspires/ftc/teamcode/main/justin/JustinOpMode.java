@@ -57,10 +57,10 @@ public class JustinOpMode extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     // Drivetrain
-    private DcMotorEx leftFront;
-    private DcMotorEx leftRear;
-    private DcMotorEx rightFront;
-    private DcMotorEx rightRear;
+    private DcMotorEx leftFront = null;
+    private DcMotorEx leftRear = null;
+    private DcMotorEx rightFront = null;
+    private DcMotorEx rightRear = null;
 
 
     /*
@@ -74,10 +74,10 @@ public class JustinOpMode extends OpMode {
         // step (using the FTC Robot Controller app on the phone).
 
         // Drivetrain Initialization
-        DcMotorEx leftFront  = hardwareMap.get(DcMotorEx.class, "leftFront");
-        DcMotorEx leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        DcMotorEx rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
-        DcMotorEx rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
 
         // Most robots need the motor on one side to be reversed to drive forward
