@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 @Disabled
-public class JustinLinearOpMode extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
+public class LinearOpModeBeta extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
