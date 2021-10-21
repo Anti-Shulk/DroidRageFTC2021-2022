@@ -62,6 +62,8 @@ public class JustinOpMode extends OpMode {
     private DcMotorEx rightFront = null;
     private DcMotorEx rightRear = null;
 
+    // Cycles variable (to calculate frequency)
+    private int cycles = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -159,11 +161,13 @@ public class JustinOpMode extends OpMode {
         rightFront.setPower(rightPower);
         rightRear.setPower(rightPower);
 
-        // Arm Motor Code
 
 
         // Show the elapsed game time and wheel power.
+
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        cycles++;
+        telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
