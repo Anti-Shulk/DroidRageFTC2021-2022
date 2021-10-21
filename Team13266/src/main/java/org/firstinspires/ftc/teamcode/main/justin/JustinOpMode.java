@@ -161,6 +161,20 @@ public class JustinOpMode extends OpMode {
         rightFront.setPower(rightPower);
         rightRear.setPower(rightPower);
 
+        // Change motors between BRAKE and FLOAT zero power modes
+        if (gamepad1.a) {
+            leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+
+        if (gamepad1.b) {
+            leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        }
 
 
         // Show the elapsed game time and wheel power.
