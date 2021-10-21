@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -69,6 +70,12 @@ public class TeleOpBeta extends OpMode {
 
     // Duck Motor
     private DcMotorEx duckMotor = null;
+
+    // Servos
+
+    private Servo rightClaw = null;
+    private Servo leftClaw = null;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -88,6 +95,15 @@ public class TeleOpBeta extends OpMode {
         // Arm Motor Initialization
         armMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
 
+       // Duck Motor
+
+        duckMotor = hardwareMap.get(DcMotorEx.class,"duckMotor");
+
+        // Servo Claw Initialization
+
+        leftClaw = hardwareMap.get(Servo.class,"leftClaw");
+        rightClaw = hardwareMap.get(Servo.class,"rightClaw");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
 
@@ -100,6 +116,13 @@ public class TeleOpBeta extends OpMode {
         // Arm Motor Directions
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        // Duck Motor Directions
+        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Servo Directions
+        leftClaw.setDirection(Servo.Direction.FORWARD);
+        rightClaw.setDirection(Servo.Direction.FORWARD);
+
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
@@ -111,6 +134,11 @@ public class TeleOpBeta extends OpMode {
 
         // Arm Motor Zero Power Behavior
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Duck Motor Zero Power Behavior
+
+        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Turn on Run Using Encoder to use the built in PID controller
 
         // Drivetrain Encoders
@@ -172,20 +200,35 @@ public class TeleOpBeta extends OpMode {
         rightRear.setPower(rightPower);
 
         // Arm code
-       double armPower = 0;
        if (gamepad1.dpad_up) {
-           armPower = 1;
+           armMotor.setPower(1);
        }
 
        if (gamepad1.dpad_down) {
-           armPower = -1;
+           armMotor.setPower(-1);
        }
 
        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-           armPower = 0;
+           armMotor.setPower(0);
        }
 
-        armMotor.setPower(armPower);
+        // Duck Code
+
+        if (gamepad1.right_trigger >= 0.1) {
+            duckMotor.setPower(1);
+        } else {
+            duckMotor.setPower(0);
+        }
+
+       // Claw Code
+        if (gamepad1.y) {
+            leftClaw.setPosition(1);
+            rightClaw.setPosition(1);
+        }
+        if (gamepad1.x) {
+            leftClaw.setPosition(-1);
+            rightClaw.setPosition(-1);
+        }
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
@@ -193,6 +236,10 @@ public class TeleOpBeta extends OpMode {
             leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
         if (gamepad1.b) {
@@ -200,6 +247,10 @@ public class TeleOpBeta extends OpMode {
             leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+            armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+            duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
 
