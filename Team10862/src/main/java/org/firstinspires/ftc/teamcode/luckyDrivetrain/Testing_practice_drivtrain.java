@@ -30,9 +30,7 @@
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -52,7 +50,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Practice Auto", group="Linear Opmode")
 
-public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
+public class Testing_practice_drivtrain extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFront = null;
@@ -99,28 +97,6 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
             leftRear.setPower(0.5);
             rightFront.setPower(0.5);
             rightRear.setPower(0.5);
-
-            sleep(1000);
-
-            //Move Forward
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(0.5);
-            rightRear.setPower(0.5);
-
-            sleep(1000);
-
-            //Move Left
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(-0.5);
-            rightRear.setPower(-0.5);
-
-            //Move back
-            leftFront.setPower(-0.5);
-            leftRear.setPower(-0.5);
-            rightFront.setPower(-0.5);
-            rightRear.setPower(-0.5);
 
             sleep(500);
             stop();
