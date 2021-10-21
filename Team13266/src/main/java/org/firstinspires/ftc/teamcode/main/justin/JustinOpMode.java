@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -64,7 +65,10 @@ public class JustinOpMode extends OpMode {
 
     // Cycles variable (to calculate frequency)
     private int cycles = 0;
-
+    // Arm Motor
+    private DcMotorEx armMotor = null;
+    // Duck Motor
+    private DcMotorEx duckMotor = null;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -81,6 +85,8 @@ public class JustinOpMode extends OpMode {
         rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
+        // Arm Motor Initialization
+        armMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -91,6 +97,8 @@ public class JustinOpMode extends OpMode {
         rightFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
 
+        // Arm Motor Directions
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -101,6 +109,8 @@ public class JustinOpMode extends OpMode {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Arm Motor Zero Power Behavior
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         // Turn on Run Using Encoder to use the built in PID controller
 
         // Drivetrain Encoders
@@ -160,6 +170,21 @@ public class JustinOpMode extends OpMode {
         leftRear.setPower(leftPower);
         rightFront.setPower(rightPower);
         rightRear.setPower(rightPower);
+
+        // Arm code
+       double armPower = 0;
+       if (gamepad1.dpad_up = true) {
+           armPower = 1;
+       }
+
+       if (gamepad1.dpad_down = true) {
+           armPower = -1;
+       }
+
+       if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
+           armPower = 0;
+       }
+        armMotor.setPower(armPower);
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
