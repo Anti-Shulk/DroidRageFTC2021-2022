@@ -66,9 +66,6 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     // just fix the errors, but ill leave it
     @SuppressWarnings("FieldCanBeLocal")
 
-    // So one problem is that there is no public void init () method. the init method runs once and it where your supposed to initialize the drive train.
-    // It isnt nesessarily wrong but it might help a bit with stuff
-
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -86,8 +83,8 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -96,38 +93,46 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            sleep(1000);
-
             // Move Front
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(0.5);
-            rightRear.setPower(0.5);
-
-            sleep(1000);
-
-            //Move Forward
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(0.5);
-            rightRear.setPower(0.5);
-
-            sleep(1000);
-
-            //Move Left
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(-0.5);
-            rightRear.setPower(-0.5);
-
-            //Move back
-            leftFront.setPower(-0.5);
-            leftRear.setPower(-0.5);
-            rightFront.setPower(-0.5);
-            rightRear.setPower(-0.5);
+            forward(1500,0.5);
+            left(50, 0.5);
 
             sleep(500);
+
+            right(50, 0.5);
+            backward(50, 0.5);
+            sleep(500);
+
             stop();
         }
+
+    }
+    private void forward (int distance, double power) {
+        leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightFront.setPower(power+0.07);
+        rightRear.setPower(power+0.07);
+        sleep(distance);
+    }
+    private void left (int distance, double power) {
+        leftFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightFront.setPower(power+0.07);
+        rightRear.setPower(power+0.07);
+        sleep(distance);
+    }
+    private void right (int distance, double power) {
+        leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightFront.setPower(-power-0.07);
+        rightRear.setPower(-power-0.07);
+        sleep(distance);
+    }
+    private void backward (int distance, double power) {
+        leftFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightFront.setPower(-power-0.07);
+        rightRear.setPower(-power-0.07);
+        sleep(distance);
     }
 }
