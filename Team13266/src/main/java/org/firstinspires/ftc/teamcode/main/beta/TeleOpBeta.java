@@ -63,8 +63,10 @@ public class TeleOpBeta extends OpMode {
 
     // Cycles variable (to calculate frequency)
     private int cycles = 0;
+
     // Arm Motor
     private DcMotorEx armMotor = null;
+
     // Duck Motor
     private DcMotorEx duckMotor = null;
     /*
@@ -171,17 +173,18 @@ public class TeleOpBeta extends OpMode {
 
         // Arm code
        double armPower = 0;
-       if (gamepad1.dpad_up = true) {
+       if (gamepad1.dpad_up) {
            armPower = 1;
        }
 
-       if (gamepad1.dpad_down = true) {
+       if (gamepad1.dpad_down) {
            armPower = -1;
        }
 
        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
            armPower = 0;
        }
+
         armMotor.setPower(armPower);
 
         // Change motors between BRAKE and FLOAT zero power modes
