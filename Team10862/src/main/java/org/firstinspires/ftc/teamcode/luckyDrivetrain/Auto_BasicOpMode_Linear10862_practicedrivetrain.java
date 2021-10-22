@@ -82,7 +82,7 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
 
@@ -110,29 +110,29 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     private void forward (int distance, double power) {
         leftFront.setPower(power);
         leftRear.setPower(power);
-        rightFront.setPower(power+0.07);
-        rightRear.setPower(power+0.07);
+        rightFront.setPower(power);
+        rightRear.setPower(power);
         sleep(distance);
     }
     private void left (int distance, double power) {
         leftFront.setPower(-power);
         leftRear.setPower(-power);
-        rightFront.setPower(power+0.07);
-        rightRear.setPower(power+0.07);
+        rightFront.setPower(power);
+        rightRear.setPower(power);
         sleep(distance);
     }
     private void right (int distance, double power) {
         leftFront.setPower(power);
         leftRear.setPower(power);
-        rightFront.setPower(-power-0.07);
-        rightRear.setPower(-power-0.07);
+        rightFront.setPower(-power);
+        rightRear.setPower(-power);
         sleep(distance);
     }
     private void backward (int distance, double power) {
         leftFront.setPower(-power);
         leftRear.setPower(-power);
-        rightFront.setPower(-power-0.07);
-        rightRear.setPower(-power-0.07);
+        rightFront.setPower(-power);
+        rightRear.setPower(-power);
         sleep(distance);
     }
 }
