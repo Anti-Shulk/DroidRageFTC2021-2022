@@ -66,7 +66,7 @@ public class TeleOpBeta extends OpMode {
     private int cycles = 0;
 
     // Arm Motor
-    private DcMotorEx armMotor = null;
+    private DcMotor armMotor = null;
 
     // Duck Motor
     private DcMotorEx duckMotor = null;
@@ -93,7 +93,7 @@ public class TeleOpBeta extends OpMode {
         rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
         // Arm Motor Initialization
-        armMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
+        armMotor = hardwareMap.get(DcMotor.class,"armMotor  ");
 
        // Duck Motor
 
@@ -221,6 +221,7 @@ public class TeleOpBeta extends OpMode {
         }
 
        // Claw Code
+        /*
         if (gamepad1.y) {
             leftClaw.setPosition(1);
             rightClaw.setPosition(1);
@@ -229,6 +230,7 @@ public class TeleOpBeta extends OpMode {
             leftClaw.setPosition(-1);
             rightClaw.setPosition(-1);
         }
+         */
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
@@ -260,6 +262,18 @@ public class TeleOpBeta extends OpMode {
         cycles++;
         telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+
+        // Servo Programmer
+        double x = 0.1;
+        if (gamepad1.back && gamepad1.dpad_up) {
+            x=+0.05;
+        }
+        if (gamepad1.back && gamepad1.dpad_down) {
+            x=x-0.05;
+        }
+        rightClaw.setPosition(x);
+        telemetry.addData("Servo Position", x);
+
     }
 
     /*
