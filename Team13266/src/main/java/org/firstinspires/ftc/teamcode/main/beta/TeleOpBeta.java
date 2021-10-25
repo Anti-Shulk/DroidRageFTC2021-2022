@@ -221,16 +221,14 @@ public class TeleOpBeta extends OpMode {
         }
 
        // Claw Code
-        /*
         if (gamepad1.y) {
-            leftClaw.setPosition(1);
-            rightClaw.setPosition(1);
+            leftClaw.setPosition(0);
+            rightClaw.setPosition(0.5);
         }
         if (gamepad1.x) {
-            leftClaw.setPosition(-1);
-            rightClaw.setPosition(-1);
+            leftClaw.setPosition(0.2);
+            rightClaw.setPosition(0.5);
         }
-         */
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
@@ -262,17 +260,6 @@ public class TeleOpBeta extends OpMode {
         cycles++;
         telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-
-        // Servo Programmer
-        double x = 0.1;
-        if (gamepad1.back && gamepad1.dpad_right) {
-            x=+0.05;
-        }
-        if (gamepad1.back && gamepad1.dpad_right) {
-            x=x-0.05;gamepad1.dpad_up
-        }
-        rightClaw.setPosition(x);
-        telemetry.addData("Servo Position", x);
 
     }
 
