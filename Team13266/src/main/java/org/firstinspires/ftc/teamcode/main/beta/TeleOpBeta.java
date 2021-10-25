@@ -265,11 +265,11 @@ public class TeleOpBeta extends OpMode {
 
         // Servo Programmer
         double x = 0.1;
-        if (gamepad1.back && gamepad1.dpad_up) {
+        if (gamepad1.back && gamepad1.dpad_right) {
             x=+0.05;
         }
-        if (gamepad1.back && gamepad1.dpad_down) {
-            x=x-0.05;
+        if (gamepad1.back && gamepad1.dpad_right) {
+            x=x-0.05;gamepad1.dpad_up
         }
         rightClaw.setPosition(x);
         telemetry.addData("Servo Position", x);
