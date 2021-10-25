@@ -201,11 +201,11 @@ public class TeleOpBeta extends OpMode {
 
         // Arm code
        if (gamepad1.dpad_up) {
-           armMotor.setPower(1);
+           armMotor.setPower(0.5);
        }
 
        if (gamepad1.dpad_down) {
-           armMotor.setPower(-1);
+           armMotor.setPower(-0.5);
        }
 
        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
@@ -215,7 +215,7 @@ public class TeleOpBeta extends OpMode {
         // Duck Code
 
         if (gamepad1.right_trigger >= 0.1) {
-            duckMotor.setPower(1);
+            duckMotor.setPower(0.75);
         } else {
             duckMotor.setPower(0);
         }
