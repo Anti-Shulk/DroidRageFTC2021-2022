@@ -166,7 +166,7 @@ public class LinearOpModeBeta extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
+            move("forward", 500);
         }
 
     }
@@ -225,4 +225,4 @@ public class LinearOpModeBeta extends LinearOpMode {
         }
         sleep(distance);
     }
-    }
+}
