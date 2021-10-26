@@ -59,6 +59,9 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
     private DcMotor leftRear = null;
     private DcMotor rightFront = null;
     private DcMotor rightRear = null;
+    private DcMotor carouselMotor = null;
+    private DcMotor otherMotor = null;
+
 
     @Override
 
@@ -78,6 +81,8 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightRear = hardwareMap.get(DcMotor.class, "rightRear");
+        carouselMotor = hardwareMap.get(DcMotor.class, "carouselMotor");
+        otherMotor = hardwareMap.get(DcMotor.class, "otherMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -85,6 +90,8 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
+        carouselMotor.setDirection(DcMotor.Direction.FORWARD);
+        otherMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -93,7 +100,7 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Move Front
+            //carouselMotor (1500);
             forward(1500,0.5);
             left(50, 0.5);
 
