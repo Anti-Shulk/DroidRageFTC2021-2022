@@ -166,7 +166,12 @@ public class LinearOpModeBeta extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            move("forward", 200);
+            move("backward", 500);
+            duckMotor.setPower(0.5);
+            sleep(10000);
+            duckMotor.setPower(0);
+            move("forward", 5000);
+            stop();
         }
 
     }
@@ -224,5 +229,11 @@ public class LinearOpModeBeta extends LinearOpMode {
             rightRear.setPower(-power);
         }
         sleep(distance);
+    }
+    private void moveStop (){
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
     }
 }
