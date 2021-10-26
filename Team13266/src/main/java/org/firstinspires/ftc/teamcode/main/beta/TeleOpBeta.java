@@ -65,6 +65,9 @@ public class TeleOpBeta extends OpMode {
     // Cycles variable (to calculate frequency)
     private int cycles = 0;
 
+    // Slow mode variable for slow mode
+    double slowMode = 1;
+
     // Arm Motor
     private DcMotor armMotor = null;
 
@@ -190,14 +193,20 @@ public class TeleOpBeta extends OpMode {
         // - This uses basic math to combine motions and is easier to drive straight.
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
+        if (gamepad1.left_bumper) {
+            slowMode = 0.8;
+        } else {
+            slowMode = 1;
+        }
+
         leftPower    = drive + turn;
         rightPower   = drive - turn;
 
         // Send calculated power to wheels
-        leftFront.setPower(leftPower);
-        leftRear.setPower(leftPower);
-        rightFront.setPower(rightPower);
-        rightRear.setPower(rightPower);
+        leftFront.setPower(leftPower * slowMode);
+        leftRear.setPower(leftPower * slowMode);
+        rightFront.setPower(rightPower * slowMode);
+        rightRear.setPower(rightPower * slowMode);
 
         // Arm code
        if (gamepad1.dpad_up) {
