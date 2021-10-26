@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.main.beta;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -52,8 +53,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
+@Autonomous(name="Basic: Linear OpMode", group="Linear Opmode")
 public class LinearOpModeBeta extends LinearOpMode {
 
     // Declare OpMode members.
@@ -166,7 +166,7 @@ public class LinearOpModeBeta extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            move("forward", 500);
+            move("forward", 200);
         }
 
     }
