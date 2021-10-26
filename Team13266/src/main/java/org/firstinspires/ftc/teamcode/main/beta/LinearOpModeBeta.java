@@ -29,9 +29,13 @@
 
 package org.firstinspires.ftc.teamcode.main.beta;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -50,37 +54,175 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 @Disabled
-public class LinearOpModeBeta extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
+public class LinearOpModeBeta extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+
+    // Drivetrain
+    private DcMotorEx leftFront = null;
+    private DcMotorEx leftRear = null;
+    private DcMotorEx rightFront = null;
+    private DcMotorEx rightRear = null;
+
+    // Cycles variable (to calculate frequency)
+    private int cycles = 0;
+
+    // Slow mode variable for slow mode
+    double slowMode = 1;
+
+    // Arm Motor
+    private DcMotor armMotor = null;
+
+    // Duck Motor
+    private DcMotorEx duckMotor = null;
+
+    // Servos
+
+    private Servo rightClaw = null;
+    private Servo leftClaw = null;
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+
+        // Drivetrain Initialization
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
+
+        // Arm Motor Initialization
+        armMotor = hardwareMap.get(DcMotor.class,"armMotor  ");
+
+        // Duck Motor
+
+        duckMotor = hardwareMap.get(DcMotorEx.class,"duckMotor");
+
+        // Servo Claw Initialization
+
+        leftClaw = hardwareMap.get(Servo.class,"leftClaw");
+        rightClaw = hardwareMap.get(Servo.class,"rightClaw");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        // Wait for the game to start (driver presses PLAY)
+        // Drivetrain Motor Directions
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Arm Motor Directions
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        // Duck Motor Directions
+        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Servo Directions
+        leftClaw.setDirection(Servo.Direction.FORWARD);
+        rightClaw.setDirection(Servo.Direction.FORWARD);
+
+        // Adjusting the Zero Power Behavior changes how the motors behaved when a
+        // Power of 0 is applied.
+
+        // Drivetrain Zero Power Behavior
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Arm Motor Zero Power Behavior
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Duck Motor Zero Power Behavior
+
+        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Turn on Run Using Encoder to use the built in PID controller
+
+        // Drivetrain Encoders
+        /*
+        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        // Reset Encoders before starting OpMode
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        */
+
+        // Tell the driver (by printing a message on the driver station) that initialization is complete.
+        telemetry.addData("Status", "Initialized");
+
         waitForStart();
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            
-            telemetry.update();
+
         }
+
         }
+    private void move (String direction, long distance) {
+        double power = 0.5;
+        if (direction.equals("forward")) {
+            leftFront.setPower(power);
+            rightFront.setPower(power);
+            leftRear.setPower(power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("backward")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(-power);
+            leftRear.setPower(-power);
+            rightRear.setPower(-power);
+        }
+        if (direction.equals("left")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftRear.setPower(-power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("right")) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftRear.setPower(power);
+            rightRear.setPower(-power);
+        }
+        sleep(distance);
+    }
+    private void move (String direction, long distance, double power) {
+        if (direction.equals("forward")) {
+            leftFront.setPower(power);
+            rightFront.setPower(power);
+            leftRear.setPower(power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("backward")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(-power);
+            leftRear.setPower(-power);
+            rightRear.setPower(-power);
+        }
+        if (direction.equals("left")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftRear.setPower(-power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("right")) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftRear.setPower(power);
+            rightRear.setPower(-power);
+        }
+        sleep(distance);
+    }
     }
