@@ -194,7 +194,7 @@ public class TeleOpBeta extends OpMode {
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
         if (gamepad1.left_bumper) {
-            slowMode = 0.8;
+            slowMode = 0.6;
         } else {
             slowMode = 1;
         }
