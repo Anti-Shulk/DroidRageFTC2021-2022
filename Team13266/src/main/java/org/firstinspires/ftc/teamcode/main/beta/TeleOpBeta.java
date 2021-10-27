@@ -144,6 +144,14 @@ public class TeleOpBeta extends OpMode {
 
         // Turn on Run Using Encoder to use the built in PID controller
 
+        // TODO arm encoders test
+        /*
+        // Arm Encoders
+        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.getCurrentPosition();
+        /*
+
         // Drivetrain Encoders
         /*
         leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
