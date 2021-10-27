@@ -29,13 +29,13 @@
 
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -51,34 +51,38 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode10862", group="Linear Opmode")
-public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
-
-    private ElapsedTime runtime = new ElapsedTime();
+@Autonomous(name="Basic: Linear OpMode_10862", group="Linear Opmode")
+public class LinearOpModeBeta_10862 extends LinearOpMode {
 
     // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+
+    // Drivetrain
     private DcMotorEx leftFront = null;
     private DcMotorEx leftRear = null;
     private DcMotorEx rightFront = null;
     private DcMotorEx rightRear = null;
     private DcMotor carouselMotor = null;
     private DcMotor otherMotor = null;
-    //Servos
+
+
+    // Cycles variable (to calculate frequency)
+    private int cycles = 0;
+    // Slow mode variable for slow mode
+    double slowMode = 1;
+
+    // Servos
     private Servo rightServo = null;
     private Servo leftServo = null;
 
     @Override
-
-    //Can I leave this here, so the project errors can be supressed?
-    @SuppressWarnings("FieldCanBeLocal")
-
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+
+        // Drivetrain Initialization
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
@@ -88,12 +92,10 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         rightServo = hardwareMap.get(Servo.class, "rightServo");
         leftServo = hardwareMap.get(Servo.class, "leftServo");
 
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
 
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
         // Drivetrain Motor Directions
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftRear.setDirection(DcMotorEx.Direction.REVERSE);
@@ -101,60 +103,102 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotor.Direction.FORWARD);
+
         //Servo Directions
         rightServo.setDirection(Servo.Direction.FORWARD);
         leftServo.setDirection(Servo.Direction.FORWARD);
 
-        // Adjusting the Zero Power Behavior changes how the motors behaved when a
-        // Power of 0 is applied.
+        // Tell the driver (by printing a message on the driver station) that initialization is complete.
+        telemetry.addData("Status", "Initialized");
 
-        // Drivetrain Zero Power Behavior
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        waitForStart();
+        runtime.reset();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            move("forward", 3000);
 
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
-            double rightPower;
+            rightServo.setPosition(0);
+            leftServo.setPosition(-0);
+            moveStop();
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
+            carouselMotor.setPower(0.2);
+            sleep(1000);
+            carouselMotor.setPower(0);
 
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            move("right", 100);
+            sleep(500);
 
-            // Send calculated power to wheels
-            leftFront.setPower(leftPower * 0.6);
-            leftRear.setPower(leftPower * 0.6);
-            rightFront.setPower(rightPower * 0.6);
-            rightRear.setPower(rightPower * 0.6);
+            move("forward", 700);
+            moveStop();
+            move("backward", 500);
+            move("right", 100);
+            moveStop();
+            move("forward",300);
 
-            if (gamepad1.a) {
-                rightServo.setPosition(0.5);
-                leftServo.setPosition(0.5);
-            }
-            if (gamepad1.b) {
-                rightServo.setPosition(1.8);
-                leftServo.setPosition(-1.8);
-            }
-            /*if (gamepad1.right_trigger) {
-                carouselMotor.setPower(1);
-            }*/
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.update();
+            stop();
         }
+
+    }
+    private void move (String direction, long distance) {
+        double power = 0.25;
+        if (direction.equals("forward")) {
+            leftFront.setPower(power);
+            rightFront.setPower(power);
+            leftRear.setPower(power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("backward")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(-power);
+            leftRear.setPower(-power);
+            rightRear.setPower(-power);
+        }
+        if (direction.equals("left")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftRear.setPower(-power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("right")) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftRear.setPower(power);
+            rightRear.setPower(-power);
+        }
+        sleep(distance);
+    }
+    private void move (String direction, long distance, double power) {
+        if (direction.equals("forward")) {
+            leftFront.setPower(power);
+            rightFront.setPower(power);
+            leftRear.setPower(power);
+            rightRear.setPower(power);
+        }
+        if (direction.equals("backward")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(-power);
+            leftRear.setPower(-power);
+            rightRear.setPower(-power);
+        }
+        if (direction.equals("left")) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftRear.setPower(power);
+            rightRear.setPower(-power);
+        }
+        if (direction.equals("right")) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftRear.setPower(-power);
+            rightRear.setPower(power);
+        }
+        sleep(distance);
+    }
+    private void moveStop (){
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
     }
 }

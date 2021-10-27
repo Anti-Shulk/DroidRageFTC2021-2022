@@ -115,7 +115,7 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         while (opModeIsActive()) {
 
             move("forward",2000 );
-            /*sleep(1000);
+            sleep(1000);
 
             move("right", 90);
             move("backward", 100);
@@ -125,7 +125,7 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
             move("forward", 5000);
             stop();
 
-            stop();*/
+            stop();
         }
 
     }
