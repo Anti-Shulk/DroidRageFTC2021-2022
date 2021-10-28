@@ -144,13 +144,10 @@ public class TeleOpBeta extends OpMode {
 
         // Turn on Run Using Encoder to use the built in PID controller
 
-        // TODO arm encoders test
-        /*
+
         // Arm Encoders
-        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.getCurrentPosition();
-        /*
+        duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Drivetrain Encoders
         /*
@@ -281,6 +278,7 @@ public class TeleOpBeta extends OpMode {
         cycles++;
         telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
 
     }
 
