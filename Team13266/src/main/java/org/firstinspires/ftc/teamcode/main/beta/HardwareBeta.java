@@ -30,6 +30,8 @@
 package org.firstinspires.ftc.teamcode.main.beta;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -53,11 +55,23 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareBeta
 {
     /* Public OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  leftArm     = null;
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+
+    // Drivetrain
+    public DcMotorEx leftFront = null;
+    public DcMotorEx leftRear = null;
+    public DcMotorEx rightFront = null;
+    public DcMotorEx rightRear = null;
+
+    // Arm Motor
+    public DcMotor armMotor = null;
+
+    // Duck Motor
+    public DcMotorEx duckMotor = null;
+
+    // Servos
+
+    public Servo leftClaw = null;
+    public Servo rightClaw = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -65,7 +79,7 @@ public class HardwareBeta
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
+    private ElapsedTime runtime  = new ElapsedTime();
 
     /* Constructor */
     public HardwareBeta(){
@@ -77,29 +91,84 @@ public class HardwareBeta
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        // Define and Initialize Motors
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
-        rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        leftArm    = hwMap.get(DcMotor.class, "left_arm");
-        leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
 
-        // Set all motors to zero power
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        leftArm.setPower(0);
+        // Drivetrain Initialization
+        leftFront = hwMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hwMap.get(DcMotorEx.class, "leftRear");
+        rightFront  = hwMap.get(DcMotorEx.class, "rightFront");
+        rightRear  = hwMap.get(DcMotorEx.class, "rightRear");
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // Arm Motor Initialization
+        armMotor = hwMap.get(DcMotor.class,"armMotor  ");
 
-        // Define and initialize ALL installed servos.
-        leftClaw  = hwMap.get(Servo.class, "left_hand");
-        rightClaw = hwMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+        // Duck Motor
+
+        duckMotor = hwMap.get(DcMotorEx.class,"duckMotor");
+
+        // Servo Claw Initialization
+
+        leftClaw = hwMap.get(Servo.class,"leftClaw");
+        rightClaw = hwMap.get(Servo.class,"rightClaw");
+
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
+
+        // Drivetrain Motor Directions
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Arm Motor Directions
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        // Duck Motor Directions
+        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Servo Directions
+        leftClaw.setDirection(Servo.Direction.FORWARD);
+        rightClaw.setDirection(Servo.Direction.FORWARD);
+
+        // Adjusting the Zero Power Behavior changes how the motors behaved when a
+        // Power of 0 is applied.
+
+        // Drivetrain Zero Power Behavior
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Arm Motor Zero Power Behavior
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Duck Motor Zero Power Behavior
+
+        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Turn on Run Using Encoder to use the built in PID controller
+        // Only do this if the motors are actually using encoders
+
+
+        // Arm Encoders
+        duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Drivetrain Encoders
+        /*
+        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        // Reset Encoders before starting OpMode
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        */
     }
 }
 
