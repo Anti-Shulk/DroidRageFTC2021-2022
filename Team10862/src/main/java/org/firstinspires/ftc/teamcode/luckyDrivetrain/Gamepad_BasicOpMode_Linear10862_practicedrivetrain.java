@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode10862", group="Linear Opmode")
+@TeleOp(name="10862TeleOp", group="Linear Opmode")
 public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -140,17 +140,30 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             rightFront.setPower(rightPower * 0.6);
             rightRear.setPower(rightPower * 0.6);
 
+            //Servo
             if (gamepad1.a) {
                 rightServo.setPosition(0.5);
                 leftServo.setPosition(0.5);
             }
             if (gamepad1.b) {
-                rightServo.setPosition(1.8);
-                leftServo.setPosition(-1.8);
+                rightServo.setPosition(0.0);
+                leftServo.setPosition(0.0);
             }
-            /*if (gamepad1.right_trigger) {
+
+            //CarouselMotor
+            if (gamepad2.a) {
                 carouselMotor.setPower(1);
-            }*/
+            } else {
+                carouselMotor.setPower(0);
+            }
+
+            //otherMotor
+            if (gamepad2.b) {
+                otherMotor.setPower(1);
+            } else {
+                carouselMotor.setPower(0);
+            }
+
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
