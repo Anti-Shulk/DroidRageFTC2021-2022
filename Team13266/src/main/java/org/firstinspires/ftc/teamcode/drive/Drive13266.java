@@ -49,7 +49,7 @@ import java.util.List;
  * Simple tank drive hardware implementation for REV hardware.
  */
 @Config
-public class TankDrive extends com.acmerobotics.roadrunner.drive.TankDrive {
+public class Drive13266 extends com.acmerobotics.roadrunner.drive.TankDrive {
     public static PIDCoefficients AXIAL_PID = new PIDCoefficients(0, 0, 0);
     public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
@@ -69,7 +69,7 @@ public class TankDrive extends com.acmerobotics.roadrunner.drive.TankDrive {
 
     private VoltageSensor batteryVoltageSensor;
 
-    public TankDrive(HardwareMap hardwareMap) {
+    public Drive13266(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH);
 
         follower = new TankPIDVAFollower(AXIAL_PID, CROSS_TRACK_PID,
