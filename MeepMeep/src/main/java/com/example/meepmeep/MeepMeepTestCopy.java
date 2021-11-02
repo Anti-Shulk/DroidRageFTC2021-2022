@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.core.colorscheme.scheme.ColorSchemeRedDark;
 
-public class MeepMeepTest {
+public class MeepMeepTestCopy {
     public static void main(String[] args) {
         // TODO: If you experience poor performance, enable this flag
         // System.setProperty("sun.java2d.opengl", "true");
@@ -21,7 +21,7 @@ public class MeepMeepTest {
                 // Set constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(0, 60, Math.toRadians(270)))
+                        drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0))
                                 .forward(30)
                                 .turn(Math.toRadians(90))
                                 .forward(30)
