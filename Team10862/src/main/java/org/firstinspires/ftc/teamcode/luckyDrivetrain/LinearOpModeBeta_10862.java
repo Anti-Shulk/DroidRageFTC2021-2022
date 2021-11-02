@@ -119,7 +119,7 @@ public class LinearOpModeBeta_10862 extends LinearOpMode {
             move("forward", 3000);
 
             rightServo.setPosition(0);
-            leftServo.setPosition(-0);
+            leftServo.setPosition(0);
             moveStop();
 
             carouselMotor.setPower(0.2);

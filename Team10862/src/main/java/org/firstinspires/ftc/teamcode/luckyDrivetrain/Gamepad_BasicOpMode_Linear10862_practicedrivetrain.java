@@ -57,6 +57,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare OpMode members.
+    //null = no value
     private DcMotorEx leftFront = null;
     private DcMotorEx leftRear = null;
     private DcMotorEx rightFront = null;
@@ -68,8 +69,6 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
     private Servo leftServo = null;
 
     @Override
-
-    //Can I leave this here, so the project errors can be supressed?
     @SuppressWarnings("FieldCanBeLocal")
 
     public void runOpMode() {
@@ -99,7 +98,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         leftRear.setDirection(DcMotorEx.Direction.REVERSE);
         rightFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
-        carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        carouselMotor.setDirection(DcMotorEx.Direction.REVERSE);
         otherMotor.setDirection(DcMotor.Direction.FORWARD);
         //Servo Directions
         rightServo.setDirection(Servo.Direction.FORWARD);
@@ -108,31 +107,34 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
-        // Drivetrain Zero Power Behavior
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Drivetrain Zero Power Behavior
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //Do servos have somthing similiar to ZeroPowerBehavior?
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
+            //double = 2 digits after the decimal
             double leftPower;
             double rightPower;
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
-
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
+
+            //Drivetrain
             double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
+            double turn  =  -gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
             leftFront.setPower(leftPower * 0.6);
@@ -140,34 +142,58 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             rightFront.setPower(rightPower * 0.6);
             rightRear.setPower(rightPower * 0.6);
 
+            //CarouselMotor
+            if (gamepad1.right_bumper) {
+                carouselMotor.setPower(0.4);
+            } else {
+                carouselMotor.setPower(0);
+            }
+
+            //100 Milliseconds = 1 Second
             //Servo
-            if (gamepad1.a) {
+
+                if (gamepad2.a) {
                 rightServo.setPosition(0.5);
                 leftServo.setPosition(0.5);
+                sleep(100);
             }
-            if (gamepad1.b) {
-                rightServo.setPosition(0.0);
-                leftServo.setPosition(0.0);
+                if (gamepad2.b) {
+                    rightServo.setPosition(0.25);
+                    leftServo.setPosition(0.25);
+                    sleep(100);
+                }
+                if (gamepad2.y) {
+                    rightServo.setPosition(0.0);
+                    leftServo.setPosition(0.0);
+                    sleep(100);
+                }
             }
 
-            //CarouselMotor
-            if (gamepad2.a) {
-                carouselMotor.setPower(1);
-            } else {
-                carouselMotor.setPower(0);
+
+
+            /* && means AND
+            || means OR */
+
+            //otherMotor (Intake/Outtake)
+            if (gamepad2.right_bumper) {
+                otherMotor.setPower(0.65);
+            }
+            if (gamepad2.left_bumper) {
+                otherMotor.setPower(-0.3);
             }
 
-            //otherMotor
-            if (gamepad2.b) {
-                otherMotor.setPower(1);
-            } else {
-                carouselMotor.setPower(0);
+            // ! means not
+            if (!gamepad2.left_bumper && !gamepad1.right_bumper){
+                otherMotor.setPower(0);
             }
+
+
+
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)");
             telemetry.update();
         }
     }
-}
+
