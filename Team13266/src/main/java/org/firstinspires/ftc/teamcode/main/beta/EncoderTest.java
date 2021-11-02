@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.main.beta;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="Encoder Test", group="Test")
 public class EncoderTest {
     /* Declare OpMode members. */
     HardwareBeta robot       = new HardwareBeta(); // use the class created to define a Pushbot's hardware
