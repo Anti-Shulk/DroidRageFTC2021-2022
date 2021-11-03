@@ -28,7 +28,9 @@
  */
 
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+//Package is telling us where to find this specific code
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -101,8 +103,8 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         carouselMotor.setDirection(DcMotorEx.Direction.REVERSE);
         otherMotor.setDirection(DcMotor.Direction.FORWARD);
         //Servo Directions
-        rightServo.setDirection(Servo.Direction.FORWARD);
-        leftServo.setDirection(Servo.Direction.FORWARD);
+        rightServo.setDirection(Servo.Direction.REVERSE);
+        leftServo.setDirection(Servo.Direction.REVERSE);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -130,10 +132,10 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             // - This uses basic math to combine motions and is easier to drive straight.
 
             //Drivetrain
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  -gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            double drive = -gamepad2.left_stick_y;
+            double turn = -gamepad2.right_stick_x;
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightPower = Range.clip(drive - turn, -1.0, 1.0);
             //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
@@ -143,47 +145,63 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             rightRear.setPower(rightPower * 0.6);
 
             //CarouselMotor
-            if (gamepad1.right_bumper) {
+            if (gamepad2.right_bumper) {
                 carouselMotor.setPower(0.4);
-            } else {
+            }
+            if (gamepad2.left_bumper) {
+                carouselMotor.setPower(-0.4);
+            }
+            // ! means not
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
                 carouselMotor.setPower(0);
             }
 
             //100 Milliseconds = 1 Second
             //Servo
-
-                if (gamepad2.a) {
-                rightServo.setPosition(0.3);
-                leftServo.setPosition(0.3);
+                if (gamepad1.a) {
+                rightServo.setPosition(0.0);
+                leftServo.setPosition(0.0);
             }
-                if (gamepad2.b) {
-                    rightServo.setPosition(0.1);
-                    leftServo.setPosition(0.1);
-                }
-                if (gamepad2.y) {
+                //rightServo - more 0.2
+                if (gamepad1.b) {
                     rightServo.setPosition(0.2);
-                    leftServo.setPosition(0.2);
-                    sleep(100);
+                    leftServo.setPosition(-0.2);
                 }
-            }
-
-
+                if (gamepad1.y) {
+                    rightServo.setPosition(0.5);
+                    leftServo.setPosition(-0.5);
+                }
 
             /* && means AND
             || means OR */
 
             //otherMotor (Intake/Outtake)
-            if (gamepad2.right_bumper) {
+            if (gamepad1.right_bumper) {
                 otherMotor.setPower(0.65);
             }
-            if (gamepad2.left_bumper) {
+            if (gamepad1.left_bumper) {
                 otherMotor.setPower(-0.3);
             }
 
             // ! means not
-            if (!gamepad2.left_bumper && !gamepad1.right_bumper){
+            if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
                 otherMotor.setPower(0);
             }
+            /*Double rightpos = rightServo.getPosition();
+            Double leftpos = leftServo.getPosition();
+            if (gamepad1.a) {
+                rightServo.setPosition(rightpos + 0.1);
+                leftServo.setPosition(leftpos + 0.1);
+            }
+            if (gamepad1.b) {
+                rightServo.setPosition(rightpos + 0.2);
+                leftServo.setPosition(leftpos + 0.2);
+            }
+            if (gamepad1.y) {
+                rightServo.setPosition(rightpos - 0.1);
+                leftServo.setPosition(leftpos - 0.1);
+            }*/
+        }
 
 
 
