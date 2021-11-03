@@ -153,18 +153,16 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Servo
 
                 if (gamepad2.a) {
-                rightServo.setPosition(0.5);
-                leftServo.setPosition(0.5);
-                sleep(100);
+                rightServo.setPosition(0.3);
+                leftServo.setPosition(0.3);
             }
                 if (gamepad2.b) {
-                    rightServo.setPosition(0.25);
-                    leftServo.setPosition(0.25);
-                    sleep(100);
+                    rightServo.setPosition(0.1);
+                    leftServo.setPosition(0.1);
                 }
                 if (gamepad2.y) {
-                    rightServo.setPosition(0.0);
-                    leftServo.setPosition(0.0);
+                    rightServo.setPosition(0.2);
+                    leftServo.setPosition(0.2);
                     sleep(100);
                 }
             }
