@@ -106,6 +106,13 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         rightServo.setDirection(Servo.Direction.REVERSE);
         leftServo.setDirection(Servo.Direction.REVERSE);
 
+        //rightServo Starting Position = 0.25
+        //leftServo Starting Position = 0.8
+        double posRight = 0.25;
+        //double posLeft = 0.8;
+
+
+
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
@@ -118,7 +125,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //Do servos have somthing similiar to ZeroPowerBehavior?
+        //Do servos have something similar to ZeroPowerBehavior?
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -159,19 +166,19 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //100 Milliseconds = 1 Second
             //Servo
                 if (gamepad1.a) {
-                rightServo.setPosition(0.0);
-                leftServo.setPosition(0.0);
+                    posRight -= 0.01;
+                    //posLeft -= 0.01;
             }
-                //rightServo - more 0.2
                 if (gamepad1.b) {
-                    rightServo.setPosition(0.2);
-                    leftServo.setPosition(-0.2);
-                }
-                if (gamepad1.y) {
-                    rightServo.setPosition(0.5);
-                    leftServo.setPosition(-0.5);
+                    posRight += 0.01;
+                   // posLeft += 0.01;
                 }
 
+            /*posLeft = Math.min(Math.max(posLeft, -1), 0.8);
+            leftServo.setPosition(Math.min(Math.max(posLeft, -1), 0.8));*/
+
+            posRight = Math.min(Math.max(posRight, 0.25), 2);
+            rightServo.setPosition(Math.min(Math.max(posRight, 0.25), 2));
             /* && means AND
             || means OR */
 
@@ -187,20 +194,6 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
                 otherMotor.setPower(0);
             }
-            /*Double rightpos = rightServo.getPosition();
-            Double leftpos = leftServo.getPosition();
-            if (gamepad1.a) {
-                rightServo.setPosition(rightpos + 0.1);
-                leftServo.setPosition(leftpos + 0.1);
-            }
-            if (gamepad1.b) {
-                rightServo.setPosition(rightpos + 0.2);
-                leftServo.setPosition(leftpos + 0.2);
-            }
-            if (gamepad1.y) {
-                rightServo.setPosition(rightpos - 0.1);
-                leftServo.setPosition(leftpos - 0.1);
-            }*/
         }
 
 
