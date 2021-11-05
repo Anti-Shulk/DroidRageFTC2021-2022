@@ -165,14 +165,6 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
 
             //100 Milliseconds = 1 Second
             //Servo
-                if (gamepad1.a) {
-                    posRight -= 0.01;
-                    posLeft -= 0.01;
-            }
-                if (gamepad1.b) {
-                    posRight += 0.01;
-                    posLeft += 0.01;
-                }
 
             posLeft = Math.min(Math.max(posLeft, 0), 0.5);
             leftServo.setPosition(Math.min(Math.max(posLeft, 0), 0.5));
@@ -181,6 +173,30 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             rightServo.setPosition(Math.min(Math.max(posRight, 0), 0.5));
             /* && means AND
             || means OR */
+
+
+            // trying to make triggers work for this.
+            if (gamepad1.right_trigger > 0) {
+                posRight += gamepad1.right_trigger / 10;
+            }
+            if (gamepad1.left_trigger > 0) {
+                posRight -= gamepad1.right_trigger / 10;
+            }
+
+
+            /*
+            if (gamepad1.a) {
+                    posRight -= 0.01;
+                    posLeft -= 0.01;
+            }
+            if (gamepad1.b) {
+                posRight += 0.01;
+                posLeft += 0.01;
+            }
+            */
+
+
+
 
             //otherMotor (Intake/Outtake)
             if (gamepad1.right_bumper) {
