@@ -24,9 +24,10 @@ public class Servo_Test2 extends OpMode {
     @Override
     public void init() {
         servo= hardwareMap.get(Servo.class, "leftServo");
-        servo.setDirection(Servo.Direction.REVERSE);
+        servo.setDirection(Servo.Direction.FORWARD);
     }
-
+//rightServo B is down
+    //leftServo
     /**
      * User defined loop method
      * <p>
@@ -40,8 +41,8 @@ public class Servo_Test2 extends OpMode {
             pos += 0.01;
         }
 
-        pos = Math.min(Math.max(pos, 1), 0);
-        servo.setPosition(Math.min(Math.max(pos, 1), 0));
+        pos = Math.min(Math.max(pos, 0), 0.5);
+        servo.setPosition(Math.min(Math.max(pos, 0), 0.5));
         telemetry.addData("servo pos", servo.getPosition());
         telemetry.addData("desired pos", pos);
         telemetry.update();

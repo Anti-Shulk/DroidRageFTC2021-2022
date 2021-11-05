@@ -104,12 +104,12 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         otherMotor.setDirection(DcMotor.Direction.FORWARD);
         //Servo Directions
         rightServo.setDirection(Servo.Direction.REVERSE);
-        leftServo.setDirection(Servo.Direction.REVERSE);
+        leftServo.setDirection(Servo.Direction.FORWARD);
 
-        //rightServo Starting Position = 0.25
-        //leftServo Starting Position = 0.8
-        double posRight = 0.25;
-        //double posLeft = 0.8;
+        //rightServo Starting Position = 0
+        //leftServo Starting Position = 0
+        double posRight = 0;
+        double posLeft = 0;
 
 
 
@@ -141,8 +141,8 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Drivetrain
             double drive = -gamepad2.left_stick_y;
             double turn = -gamepad2.right_stick_x;
-            leftPower = Range.clip(drive + turn, -1.0, 1.0);
-            rightPower = Range.clip(drive - turn, -1.0, 1.0);
+            leftPower = Range.clip(drive + turn, 0.0, 1.0);
+            rightPower = Range.clip(drive - turn, 0.0, 1.0);
             //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
@@ -167,18 +167,18 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Servo
                 if (gamepad1.a) {
                     posRight -= 0.01;
-                    //posLeft -= 0.01;
+                    posLeft -= 0.01;
             }
                 if (gamepad1.b) {
                     posRight += 0.01;
-                   // posLeft += 0.01;
+                    posLeft += 0.01;
                 }
 
-            /*posLeft = Math.min(Math.max(posLeft, -1), 0.8);
-            leftServo.setPosition(Math.min(Math.max(posLeft, -1), 0.8));*/
+            posLeft = Math.min(Math.max(posLeft, 0), 0.5);
+            leftServo.setPosition(Math.min(Math.max(posLeft, 0), 0.5));
 
-            posRight = Math.min(Math.max(posRight, 0.25), 2);
-            rightServo.setPosition(Math.min(Math.max(posRight, 0.25), 2));
+            posRight = Math.min(Math.max(posRight, 0), 0.5);
+            rightServo.setPosition(Math.min(Math.max(posRight, 0), 0.5));
             /* && means AND
             || means OR */
 
