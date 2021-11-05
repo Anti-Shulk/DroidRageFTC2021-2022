@@ -141,8 +141,8 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Drivetrain
             double drive = -gamepad2.left_stick_y;
             double turn = -gamepad2.right_stick_x;
-            leftPower = Range.clip(drive + turn, 0.0, 1.0);
-            rightPower = Range.clip(drive - turn, 0.0, 1.0);
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightPower = Range.clip(drive - turn, -1.0, 1.0);
             //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels

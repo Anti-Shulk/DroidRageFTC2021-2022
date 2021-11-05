@@ -28,7 +28,7 @@ public class MeepMeepTest {
                                 .splineTo(new Vector2d(3,33), Math.toRadians(240))
                                 .waitSeconds(2)
                                 .splineTo(new Vector2d(15,63), Math.toRadians(0))
-                                .splineTo(new Vector2d(15,63), Math.toRadians(0))
+                                .splineTo(new Vector2d(16,63), Math.toRadians(0))
                                 .build()
                 )
                 .start();
