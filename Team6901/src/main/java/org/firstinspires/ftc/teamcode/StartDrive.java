@@ -42,7 +42,7 @@ public class StartDrive extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Sup Nerd", "Hello Driver");    //
+        telemetry.addData("Sup Nerd, ", "Get Ready");    //
     }
 
 
@@ -88,12 +88,12 @@ public class StartDrive extends OpMode{
         robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
         // Use gamepad buttons to move the arm up (Y) and down (A)
-        if (gamepad1.y)
-            robot.leftArm.setPower(robot.ARM_UP_POWER);
-        else if (gamepad1.a)
-            robot.leftArm.setPower(robot.ARM_DOWN_POWER);
+        if (gamepad2.y)
+            robot.Arm.setPower(robot.ARM_UP_POWER);
+        else if (gamepad2.a)
+            robot.Arm.setPower(robot.ARM_DOWN_POWER);
         else
-            robot.leftArm.setPower(0.0);
+            robot.Arm.setPower(0.0);
 
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);
