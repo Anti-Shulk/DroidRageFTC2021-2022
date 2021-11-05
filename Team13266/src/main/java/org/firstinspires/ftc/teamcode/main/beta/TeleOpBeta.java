@@ -67,7 +67,7 @@ public class TeleOpBeta extends OpMode {
 
     // Slow mode variable for slow mode
     double slowMode = 1;
-
+    /*
     // Arm Motor
     private DcMotor armMotor = null;
 
@@ -78,6 +78,8 @@ public class TeleOpBeta extends OpMode {
 
     private Servo rightClaw = null;
     private Servo leftClaw = null;
+    */
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -95,6 +97,7 @@ public class TeleOpBeta extends OpMode {
         rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
+        /*
         // Arm Motor Initialization
         armMotor = hardwareMap.get(DcMotor.class,"armMotor  ");
 
@@ -107,15 +110,18 @@ public class TeleOpBeta extends OpMode {
         leftClaw = hardwareMap.get(Servo.class,"leftClaw");
         rightClaw = hardwareMap.get(Servo.class,"rightClaw");
 
+         */
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
 
         // Drivetrain Motor Directions
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
-        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
-        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        leftRear.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
+        /*
         // Arm Motor Directions
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -125,7 +131,7 @@ public class TeleOpBeta extends OpMode {
         // Servo Directions
         leftClaw.setDirection(Servo.Direction.FORWARD);
         rightClaw.setDirection(Servo.Direction.FORWARD);
-
+*/
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
@@ -134,7 +140,7 @@ public class TeleOpBeta extends OpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+/*
         // Arm Motor Zero Power Behavior
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -148,9 +154,9 @@ public class TeleOpBeta extends OpMode {
         // Arm Encoders
         duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
+*/
         // Drivetrain Encoders
-        /*
+/*
         leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -161,7 +167,7 @@ public class TeleOpBeta extends OpMode {
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        */
+*/
 
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -199,7 +205,7 @@ public class TeleOpBeta extends OpMode {
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
         if (gamepad1.left_bumper) {
-            slowMode = 0.6;
+            slowMode = 0.4;
         } else {
             slowMode = 1;
         }
@@ -212,7 +218,7 @@ public class TeleOpBeta extends OpMode {
         leftRear.setPower(leftPower * slowMode);
         rightFront.setPower(rightPower * slowMode);
         rightRear.setPower(rightPower * slowMode);
-
+/*
         // Arm code
        if (gamepad1.dpad_up) {
            armMotor.setPower(0.5);
@@ -247,17 +253,19 @@ public class TeleOpBeta extends OpMode {
             leftClaw.setPosition(0.2);
             rightClaw.setPosition(0.5);
         }
-
+*/
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
             leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+/*
             armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            */
+
         }
 
         if (gamepad1.b) {
@@ -265,10 +273,12 @@ public class TeleOpBeta extends OpMode {
             leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
+/*
             armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            */
+
         }
 
 
@@ -278,7 +288,7 @@ public class TeleOpBeta extends OpMode {
         cycles++;
         telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-        telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
+        //telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
 
     }
 
