@@ -52,7 +52,6 @@ import java.util.List;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
 public class TensorFlowObjectDetectionTest extends LinearOpMode {
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
@@ -65,7 +64,7 @@ public class TensorFlowObjectDetectionTest extends LinearOpMode {
    *  FreightFrenzy_BC.tflite  0: Ball,  1: Cube
    *  FreightFrenzy_DM.tflite  0: Duck,  1: Marker
    */
-    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_BCDM.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
+    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_BC.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
     private static final String[] LABELS = {
       "Ball",
       "Cube",
