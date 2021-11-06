@@ -122,8 +122,8 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         //Do servos have something similar to ZeroPowerBehavior?
 
@@ -146,10 +146,10 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
-            leftFront.setPower(leftPower * 0.6);
-            leftRear.setPower(leftPower * 0.6);
-            rightFront.setPower(rightPower * 0.6);
-            rightRear.setPower(rightPower * 0.6);
+            leftFront.setPower(leftPower);
+            leftRear.setPower(leftPower);
+            rightFront.setPower(rightPower);
+            rightRear.setPower(rightPower);
 
             //CarouselMotor
             if (gamepad2.right_bumper) {
@@ -203,7 +203,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
                 otherMotor.setPower(0.65);
             }
             if (gamepad1.left_bumper) {
-                otherMotor.setPower(-0.3);
+                otherMotor.setPower(-0.45);
             }
 
             // ! means not

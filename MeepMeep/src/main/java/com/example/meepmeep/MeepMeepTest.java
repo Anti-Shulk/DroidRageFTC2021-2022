@@ -25,10 +25,7 @@ public class MeepMeepTest {
                         drive.trajectorySequenceBuilder(new Pose2d(10, 60, Math.toRadians(270)))
                                 .splineTo(new Vector2d(10,47), Math.toRadians(240))
                                 .waitSeconds(2)
-                                .splineTo(new Vector2d(3,33), Math.toRadians(240))
-                                .waitSeconds(2)
-                                .splineTo(new Vector2d(15,63), Math.toRadians(0))
-                                .splineTo(new Vector2d(15,63), Math.toRadians(0))
+                                .splineTo(new Vector2d(3,-33), Math.toRadians(240))
                                 .build()
                 )
                 .start();
