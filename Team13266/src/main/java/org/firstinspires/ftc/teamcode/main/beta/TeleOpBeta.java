@@ -78,6 +78,9 @@ public class TeleOpBeta extends OpMode {
 
     private Servo boxServo = null;
 
+    // Constants
+    public static final double TICKS_PER_REV = 383.6;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -142,6 +145,10 @@ public class TeleOpBeta extends OpMode {
 
 
         // Arm Encoders
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -161,6 +168,12 @@ public class TeleOpBeta extends OpMode {
 
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
+    }
+    public void setPosition(double pos){
+        armMotor.setTargetPosition((int) (TICKS_PER_REV * pos));
+    }
+    public double getPosition(){
+        return armMotor.getCurrentPosition()/TICKS_PER_REV;
     }
 
     /*
@@ -273,6 +286,8 @@ public class TeleOpBeta extends OpMode {
         telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
+        telemetry.addData("arm motor position", armMotor.getCurrentPosition());
+        telemetry.addData("arm motor position divided by tick per rev", getPosition());
 
     }
 
