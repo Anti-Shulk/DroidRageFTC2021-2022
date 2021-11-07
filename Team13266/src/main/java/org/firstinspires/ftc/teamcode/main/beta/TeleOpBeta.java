@@ -225,6 +225,7 @@ public class TeleOpBeta extends OpMode {
         rightRear.setPower(rightPower * slowMode);
 
         // Arm code
+        /*
        if (gamepad1.dpad_up) {
            //armMotor.setPower(0.5);
            armMotor.setVelocity(700);
@@ -239,7 +240,25 @@ public class TeleOpBeta extends OpMode {
            //armMotor.setPower(0);
            armMotor.setVelocity(0);
        }
+*/
+        if (gamepad1.b) {
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(1);
+        }
+        if (gamepad1.dpad_up) {
+            //armMotor.setPower(0.5);
+            armMotor.setTargetPosition(armMotor.getCurrentPosition()+1);
+        }
 
+        if (gamepad1.dpad_down) {
+            //armMotor.setPower(-0.5);
+            armMotor.setTargetPosition(armMotor.getCurrentPosition()-1);
+        }
+
+        if (gamepad1.x) {
+            //armMotor.setPower(0);
+            armMotor.setTargetPosition(0);
+        }
         // Duck Code
 /*
         if (gamepad1.right_trigger >= 0.1) {
