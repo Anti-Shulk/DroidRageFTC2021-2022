@@ -76,8 +76,7 @@ public class TeleOpBeta extends OpMode {
 
     // Servos
 
-    private Servo rightClaw = null;
-    private Servo leftClaw = null;
+    private Servo boxServo = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -96,16 +95,14 @@ public class TeleOpBeta extends OpMode {
         rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
         // Arm Motor Initialization
-        armMotor = hardwareMap.get(DcMotor.class,"armMotor  ");
+        armMotor = hardwareMap.get(DcMotor.class,"armMotor");
 
        // Duck Motor
 
         duckMotor = hardwareMap.get(DcMotorEx.class,"duckMotor");
 
-        // Servo Claw Initialization
-
-        leftClaw = hardwareMap.get(Servo.class,"leftClaw");
-        rightClaw = hardwareMap.get(Servo.class,"rightClaw");
+        // Servo Initialization
+        boxServo = hardwareMap.get(Servo.class,"boxServo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -123,8 +120,7 @@ public class TeleOpBeta extends OpMode {
         duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Servo Directions
-        leftClaw.setDirection(Servo.Direction.FORWARD);
-        rightClaw.setDirection(Servo.Direction.FORWARD);
+        boxServo.setDirection(Servo.Direction.FORWARD);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -240,12 +236,10 @@ public class TeleOpBeta extends OpMode {
 
        // Claw Code
         if (gamepad1.y) {
-            leftClaw.setPosition(0);
-            rightClaw.setPosition(0.5);
+            boxServo.setPosition(0);
         }
         if (gamepad1.x) {
-            leftClaw.setPosition(0.2);
-            rightClaw.setPosition(0.5);
+            boxServo.setPosition(0.2);
         }
 
         // Change motors between BRAKE and FLOAT zero power modes
