@@ -69,7 +69,7 @@ public class TeleOpBeta extends OpMode {
     double slowMode = 1;
 
     // Arm Motor
-    private DcMotor armMotor = null;
+    private DcMotorEx armMotor = null;
 
     // Duck Motor
     private DcMotorEx duckMotor = null;
@@ -98,7 +98,7 @@ public class TeleOpBeta extends OpMode {
         rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
 
         // Arm Motor Initialization
-        armMotor = hardwareMap.get(DcMotor.class,"armMotor");
+        armMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
 
        // Duck Motor
 
@@ -135,7 +135,7 @@ public class TeleOpBeta extends OpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Arm Motor Zero Power Behavior
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         // Duck Motor Zero Power Behavior
 
@@ -145,8 +145,8 @@ public class TeleOpBeta extends OpMode {
 
 
         // Arm Encoders
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -168,7 +168,7 @@ public class TeleOpBeta extends OpMode {
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
-    /*
+
     public void setPosition(double pos){
         armMotor.setTargetPosition((int) (TICKS_PER_REV * pos));
     }
@@ -176,7 +176,7 @@ public class TeleOpBeta extends OpMode {
         return armMotor.getCurrentPosition()/TICKS_PER_REV;
     }
 
-     */
+
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -226,15 +226,18 @@ public class TeleOpBeta extends OpMode {
 
         // Arm code
        if (gamepad1.dpad_up) {
-           armMotor.setPower(0.5);
+           //armMotor.setPower(0.5);
+           armMotor.setVelocity(200);
        }
 
        if (gamepad1.dpad_down) {
-           armMotor.setPower(-0.5);
+           //armMotor.setPower(-0.5);
+           armMotor.setVelocity(-200);
        }
 
        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-           armMotor.setPower(0);
+           //armMotor.setPower(0);
+           armMotor.setVelocity(0);
        }
 
         // Duck Code
@@ -279,14 +282,14 @@ public class TeleOpBeta extends OpMode {
 
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
-        /*
+
         if (gamepad1.left_bumper) {
             setPosition(0.5);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.3);
         }
 
-         */
+
 
 
 
