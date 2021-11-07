@@ -279,7 +279,7 @@ public class TeleOpBeta extends OpMode {
         if (gamepad1.left_bumper) {
             setPosition(0.5);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(1);
+            armMotor.setPower(0.3);
         }
 
 
