@@ -168,12 +168,15 @@ public class TeleOpBeta extends OpMode {
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
+    /*
     public void setPosition(double pos){
         armMotor.setTargetPosition((int) (TICKS_PER_REV * pos));
     }
     public double getPosition(){
         return armMotor.getCurrentPosition()/TICKS_PER_REV;
     }
+
+     */
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -276,11 +279,14 @@ public class TeleOpBeta extends OpMode {
 
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
+        /*
         if (gamepad1.left_bumper) {
             setPosition(0.5);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.3);
         }
+
+         */
 
 
 
@@ -292,7 +298,7 @@ public class TeleOpBeta extends OpMode {
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
         telemetry.addData("arm motor position", armMotor.getCurrentPosition());
-        telemetry.addData("arm motor position divided by tick per rev", getPosition());
+        telemetry.addData("arm motor position divided by tick per rev", armMotor.getCurrentPosition()/383.6);
 
     }
 
