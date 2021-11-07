@@ -235,7 +235,7 @@ public class TeleOpBeta extends OpMode {
        }
 
         // Duck Code
-
+/*
         if (gamepad1.right_trigger >= 0.1) {
             duckMotor.setPower(0.75);
         }
@@ -245,7 +245,7 @@ public class TeleOpBeta extends OpMode {
         if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1){
             duckMotor.setPower(0);
         }
-
+*/
        // Claw Code
         if (gamepad1.y) {
             boxServo.setPosition(0);
@@ -279,6 +279,7 @@ public class TeleOpBeta extends OpMode {
         if (gamepad1.left_bumper) {
             setPosition(0.5);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(1);
         }
 
 
