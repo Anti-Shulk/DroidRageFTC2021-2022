@@ -227,12 +227,12 @@ public class TeleOpBeta extends OpMode {
         // Arm code
        if (gamepad1.dpad_up) {
            //armMotor.setPower(0.5);
-           armMotor.setVelocity(500);
+           armMotor.setVelocity(700);
        }
 
        if (gamepad1.dpad_down) {
            //armMotor.setPower(-0.5);
-           armMotor.setVelocity(-500);
+           armMotor.setVelocity(-700);
        }
 
        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
@@ -286,7 +286,9 @@ public class TeleOpBeta extends OpMode {
         if (gamepad1.left_bumper) {
             setPosition(0.5);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.8);
+        }
+        if (gamepad1.a) {
+            armMotor.setPower(1);
         }
 
 
