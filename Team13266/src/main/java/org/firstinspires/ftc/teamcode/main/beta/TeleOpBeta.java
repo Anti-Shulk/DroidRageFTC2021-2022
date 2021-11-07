@@ -147,7 +147,6 @@ public class TeleOpBeta extends OpMode {
         // Arm Encoders
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -277,6 +276,11 @@ public class TeleOpBeta extends OpMode {
 
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
+        if (gamepad1.left_bumper) {
+            setPosition(0.5);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
 
 
         // Show the elapsed game time and wheel power.
