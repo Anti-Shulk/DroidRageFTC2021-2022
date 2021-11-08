@@ -284,13 +284,13 @@ public class TeleOpBeta extends OpMode {
             duckMotor.setPower(0);
         }
 
-       // Claw Code
-        if (gamepad1.y) {
+       // box servo code
+        if (gamepad2.left_trigger >= 0.1) {
             boxServo.setPosition(0);
+        } else {
+            boxServo.setPosition(0.5);
         }
-        if (gamepad1.x) {
-            boxServo.setPosition(0.2);
-        }
+
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
