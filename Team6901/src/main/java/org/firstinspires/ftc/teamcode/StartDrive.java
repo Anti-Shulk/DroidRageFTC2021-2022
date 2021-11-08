@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.Hardware69;
@@ -24,7 +26,6 @@ import org.firstinspires.ftc.teamcode.Hardware69;
      */
 
 @TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
-@Disabled
 public class StartDrive extends OpMode{
 
     /* Declare OpMode members. */
@@ -95,19 +96,19 @@ public class StartDrive extends OpMode{
         robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
         // Use gamepad buttons to move the arm up (Y) and down (A)
-        if (gamepad2.y)
+        if (gamepad2.left_stick_y >= 0.1)
             robot.Arm.setPower(robot.ARM_UP_POWER);
-        else if (gamepad2.a)
+        else if (gamepad2.left_stick_y < -0.1)
             robot.Arm.setPower(robot.ARM_DOWN_POWER);
         else
             robot.Arm.setPower(0.0);
 
-        // Carosel
-        if (gamepad1.right_trigger)
+        // Carousel
+        if (gamepad1.right_trigger >= 0.1)
         {
              robot.Carousel.setPower(0.6);
         }
-        else if  (gamepad2.left_trigger)
+        else if  (gamepad2.left_trigger >= 0.1)
         {
             robot.Carousel.setPower(-0.6);
         }
@@ -117,7 +118,7 @@ public class StartDrive extends OpMode{
         }
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        //telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
