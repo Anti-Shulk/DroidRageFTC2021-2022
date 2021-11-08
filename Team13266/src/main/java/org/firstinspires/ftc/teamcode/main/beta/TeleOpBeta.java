@@ -341,7 +341,7 @@ public class TeleOpBeta extends OpMode {
             intakeMotor.setVelocity(5000);
         }
         if (gamepad1.left_trigger >= 0.1) {
-            intakeMotor.setVelocity(5000);
+            intakeMotor.setVelocity(-5000);
         }
         if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1) {
             intakeMotor.setVelocity(0);
