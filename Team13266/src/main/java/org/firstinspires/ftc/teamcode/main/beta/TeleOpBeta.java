@@ -258,7 +258,7 @@ public class TeleOpBeta extends OpMode {
         if (gamepad2.left_bumper) {
             duckMotor.setPower(-0.75);
         }
-        if (gamepad2.right_bumper && gamepad2.left_bumper) {
+        if (!gamepad2.right_bumper && !gamepad2.left_bumper) {
             duckMotor.setPower(0);
         }
 
