@@ -174,15 +174,14 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             /* && means AND
             || means OR */
 
-            /* trying to make triggers work for this.
             if (gamepad1.right_trigger > 0) {
-                posRight += gamepad1.right_trigger / 12;
-                posLeft += gamepad1.right_trigger / 12;
+                posRight += gamepad1.right_trigger / 500;
+                posLeft += gamepad1.right_trigger / 500;
             }
             if (gamepad1.left_trigger > 0) {
-                posRight -= gamepad1.right_trigger / 12;
-                posLeft -= gamepad1.right_trigger / 12;
-            }*/
+                posRight -= gamepad1.left_trigger / 500;
+                posLeft -= gamepad1.left_trigger / 500;
+            }
 
             if (gamepad1.dpad_up) {
                     posRight -= 0.0005;
