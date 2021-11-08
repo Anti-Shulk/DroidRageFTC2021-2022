@@ -38,7 +38,7 @@ public class Hardware69
         public DcMotor backrightDrive = null;
         public DcMotor Carousel =  null;
 
-        public static final double MID_SERVO       =  0.7 ;
+        public static final double MID_SERVO       =  0.5 ;
         public static final double ARM_UP_POWER    =  0.5 ;
         public static final double ARM_DOWN_POWER  = -0.5 ;
 
@@ -67,6 +67,7 @@ public class Hardware69
             rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
             backrightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
             Arm.setDirection(DcMotorSimple.Direction.REVERSE);
+            Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
 
             // set to brake mode
             leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -74,14 +75,13 @@ public class Hardware69
             backleftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backrightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+            Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
             // Set all motors to zero power
             leftDrive.setPower(0);
             backleftDrive.setPower(0);
             rightDrive.setPower(0);
             backrightDrive.setPower(0);
             Arm.setPower(0);
-            Carousel.setPower(0);
 
             // Set all motors to run without encoders.
             // May want to use RUN_USING_ENCODERS if encoders are installed.
