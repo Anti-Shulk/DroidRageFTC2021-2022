@@ -177,23 +177,25 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
 
             // trying to make triggers work for this.
             if (gamepad1.right_trigger > 0) {
-                posRight += gamepad1.right_trigger / 10;
+                posRight += gamepad1.right_trigger / 500;
+                posLeft += gamepad1.right_trigger / 500;
             }
             if (gamepad1.left_trigger > 0) {
-                posRight -= gamepad1.right_trigger / 10;
+                posRight -= gamepad1.left_trigger / 500;
+                posLeft -= gamepad1.left_trigger / 500;
             }
 
 
-            /*
-            if (gamepad1.a) {
-                    posRight -= 0.01;
-                    posLeft -= 0.01;
+
+            if (gamepad1.dpad_up) {
+                posRight -= 0.0001;
+                posLeft -= 0.0001;
             }
-            if (gamepad1.b) {
-                posRight += 0.01;
-                posLeft += 0.01;
+            if (gamepad1.dpad_up) {
+                posRight += 0.0001;
+                posLeft += 0.0001;
             }
-            */
+
 
 
 
