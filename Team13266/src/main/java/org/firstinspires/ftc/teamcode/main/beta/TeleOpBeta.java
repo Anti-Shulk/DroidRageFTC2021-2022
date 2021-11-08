@@ -151,8 +151,8 @@ public class TeleOpBeta extends OpMode {
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
 
-        duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        //duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        //duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Drivetrain Encoders
         /*
