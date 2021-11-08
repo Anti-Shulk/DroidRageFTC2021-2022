@@ -148,6 +148,9 @@ public class TeleOpBeta extends OpMode {
         armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
+
         duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -223,28 +226,14 @@ public class TeleOpBeta extends OpMode {
         leftRear.setPower(leftPower * slowMode);
         rightFront.setPower(rightPower * slowMode);
         rightRear.setPower(rightPower * slowMode);
-
-        // Arm code
-        /*
-       if (gamepad1.dpad_up) {
-           //armMotor.setPower(0.5);
-           armMotor.setVelocity(700);
-       }
-
-       if (gamepad1.dpad_down) {
-           //armMotor.setPower(-0.5);
-           armMotor.setVelocity(-700);
-       }
-
-       if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-           //armMotor.setPower(0);
-           armMotor.setVelocity(0);
-       }
-*/
-        if (gamepad1.b) {
+/*
+      if (gamepad1.b) {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.5);
         }
+
+ */
+      /*
         if (gamepad1.dpad_up) {
             //armMotor.setPower(0.5);
             armMotor.setTargetPosition(armMotor.getCurrentPosition()+1);
@@ -259,18 +248,20 @@ public class TeleOpBeta extends OpMode {
             //armMotor.setPower(0);
             armMotor.setTargetPosition(0);
         }
+        */
+
         // Duck Code
-/*
-        if (gamepad1.right_trigger >= 0.1) {
+
+        if (gamepad2.right_bumper) {
             duckMotor.setPower(0.75);
         }
-        if (gamepad1.left_trigger >= 0.1) {
+        if (gamepad2.left_bumper) {
             duckMotor.setPower(-0.75);
         }
-        if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1){
+        if (gamepad2.right_bumper && gamepad2.left_bumper) {
             duckMotor.setPower(0);
         }
-*/
+
        // Claw Code
         if (gamepad1.y) {
             boxServo.setPosition(0);
@@ -304,7 +295,7 @@ public class TeleOpBeta extends OpMode {
 
         // High
         if (gamepad2.y) {
-            setPosition(1.11);
+            setPosition(1.3);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         // Mid
