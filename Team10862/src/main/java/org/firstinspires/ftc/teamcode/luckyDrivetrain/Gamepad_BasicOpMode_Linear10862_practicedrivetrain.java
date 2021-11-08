@@ -28,7 +28,9 @@
  */
 
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+//Package is telling us where to find this specific code
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -57,6 +59,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare OpMode members.
+    //null = no value
     private DcMotorEx leftFront = null;
     private DcMotorEx leftRear = null;
     private DcMotorEx rightFront = null;
@@ -68,8 +71,6 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
     private Servo leftServo = null;
 
     @Override
-
-    //Can I leave this here, so the project errors can be supressed?
     @SuppressWarnings("FieldCanBeLocal")
 
     public void runOpMode() {
@@ -99,75 +100,125 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
         leftRear.setDirection(DcMotorEx.Direction.REVERSE);
         rightFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
-        carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        carouselMotor.setDirection(DcMotorEx.Direction.REVERSE);
         otherMotor.setDirection(DcMotor.Direction.FORWARD);
         //Servo Directions
-        rightServo.setDirection(Servo.Direction.FORWARD);
+        rightServo.setDirection(Servo.Direction.REVERSE);
         leftServo.setDirection(Servo.Direction.FORWARD);
+
+        //rightServo Starting Position = 0
+        //leftServo Starting Position = 0
+        double posRight = 0;
+        double posLeft = 0;
+
+
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
-        // Drivetrain Zero Power Behavior
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Drivetrain Zero Power Behavior
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
+        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        otherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        //Do servos have something similar to ZeroPowerBehavior?
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
+            //double = 2 digits after the decimal
             double leftPower;
             double rightPower;
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
-
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+            //Drivetrain
+            double drive = -gamepad2.left_stick_y;
+            double turn = -gamepad2.right_stick_x;
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightPower = Range.clip(drive - turn, -1.0, 1.0);
+            //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
-            leftFront.setPower(leftPower * 0.6);
-            leftRear.setPower(leftPower * 0.6);
-            rightFront.setPower(rightPower * 0.6);
-            rightRear.setPower(rightPower * 0.6);
-
-            //Servo
-            if (gamepad1.a) {
-                rightServo.setPosition(0.5);
-                leftServo.setPosition(0.5);
-            }
-            if (gamepad1.b) {
-                rightServo.setPosition(0.0);
-                leftServo.setPosition(0.0);
-            }
+            leftFront.setPower(leftPower);
+            leftRear.setPower(leftPower);
+            rightFront.setPower(rightPower);
+            rightRear.setPower(rightPower);
 
             //CarouselMotor
-            if (gamepad2.a) {
-                carouselMotor.setPower(1);
-            } else {
+            if (gamepad2.right_bumper) {
+                carouselMotor.setPower(0.4);
+            }
+            if (gamepad2.left_bumper) {
+                carouselMotor.setPower(-0.4);
+            }
+            // ! means not
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
                 carouselMotor.setPower(0);
             }
 
-            //otherMotor
-            if (gamepad2.b) {
-                otherMotor.setPower(1);
-            } else {
-                carouselMotor.setPower(0);
+            //100 Milliseconds = 1 Second
+            //Servo
+
+            posLeft = Math.min(Math.max(posLeft, 0), 0.5);
+            leftServo.setPosition(Math.min(Math.max(posLeft, 0), 0.5));
+
+            posRight = Math.min(Math.max(posRight, 0), 0.5);
+            rightServo.setPosition(Math.min(Math.max(posRight, 0), 0.5));
+            /* && means AND
+            || means OR */
+
+
+            // trying to make triggers work for this.
+            if (gamepad1.right_trigger > 0) {
+                posRight += gamepad1.right_trigger / 10;
             }
+            if (gamepad1.left_trigger > 0) {
+                posRight -= gamepad1.right_trigger / 10;
+            }
+
+
+            /*
+            if (gamepad1.a) {
+                    posRight -= 0.01;
+                    posLeft -= 0.01;
+            }
+            if (gamepad1.b) {
+                posRight += 0.01;
+                posLeft += 0.01;
+            }
+            */
+
+
+
+
+            //otherMotor (Intake/Outtake)
+            if (gamepad1.right_bumper) {
+                otherMotor.setPower(0.65);
+            }
+            if (gamepad1.left_bumper) {
+                otherMotor.setPower(-0.45);
+            }
+
+            // ! means not
+            if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
+                otherMotor.setPower(0);
+            }
+        }
+
+
+
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)");
             telemetry.update();
         }
     }
-}
+

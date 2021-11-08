@@ -28,11 +28,15 @@
  */
 
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+//Package is telling us where to find this specific code
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -48,58 +52,52 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Practice Auto", group="Linear Opmode")
-
-public class Testing_practice_drivtrain extends LinearOpMode {
+@TeleOp(name="Servo_Test", group="Linear Opmode")
+public class Servo_Test extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFront = null;
-    private DcMotor leftRear = null;
-    private DcMotor rightFront = null;
-    private DcMotor rightRear = null;
+
+    // Declare OpMode members.
+    //null = no value
+    //Servos
+    private Servo Servo = null;
 
     @Override
-
-    //Can I leave this here, so the project errors can be supressed?
     @SuppressWarnings("FieldCanBeLocal")
 
     public void runOpMode() {
+        double servoPosition = 0.5;
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone)
+        // step (using the FTC Robot Controller app on the phone).
 
-        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
+        Servo = hardwareMap.get(Servo.class, "rightServo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
+        //Servo Directions
+        Servo.setDirection(com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            sleep(1000);
-
-            // Move Front
-            leftFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightFront.setPower(0.5);
-            rightRear.setPower(0.5);
-
-            sleep(500);
-            stop();
+            if (gamepad1.a) {
+               servoPosition += 0.05;
+            }
+            if (gamepad1.b) {
+                servoPosition -= 0.05;
+            }
+            Servo.setPosition(servoPosition);
+            telemetry.addData("servo postion", servoPosition);
+            telemetry.update();
+            sleep(10);
+        }
         }
     }
-}
+

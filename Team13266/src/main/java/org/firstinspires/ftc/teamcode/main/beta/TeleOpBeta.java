@@ -53,125 +53,32 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="TeleOP Beta", group="Beta")
 public class TeleOpBeta extends OpMode {
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-
-    // Drivetrain
-    private DcMotorEx leftFront = null;
-    private DcMotorEx leftRear = null;
-    private DcMotorEx rightFront = null;
-    private DcMotorEx rightRear = null;
-
-    // Cycles variable (to calculate frequency)
-    private int cycles = 0;
-
-    // Slow mode variable for slow mode
-    double slowMode = 1;
-    /*
-    // Arm Motor
-    private DcMotor armMotor = null;
-
-    // Duck Motor
-    private DcMotorEx duckMotor = null;
-
-    // Servos
-
-    private Servo rightClaw = null;
-    private Servo leftClaw = null;
-    */
-
+    HardwareMapBeta robot = new HardwareMapBeta();
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-
+        robot.init(hardwareMap);
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        // Drivetrain Initialization
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
-        rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
-
-        /*
-        // Arm Motor Initialization
-        armMotor = hardwareMap.get(DcMotor.class,"armMotor  ");
-
-       // Duck Motor
-
-        duckMotor = hardwareMap.get(DcMotorEx.class,"duckMotor");
-
-        // Servo Claw Initialization
-
-        leftClaw = hardwareMap.get(Servo.class,"leftClaw");
-        rightClaw = hardwareMap.get(Servo.class,"rightClaw");
-
-         */
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-
-        // Drivetrain Motor Directions
-        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
-        leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
-        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
-
-        /*
-        // Arm Motor Directions
-        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        // Duck Motor Directions
-        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        // Servo Directions
-        leftClaw.setDirection(Servo.Direction.FORWARD);
-        rightClaw.setDirection(Servo.Direction.FORWARD);
-*/
-        // Adjusting the Zero Power Behavior changes how the motors behaved when a
-        // Power of 0 is applied.
-
-        // Drivetrain Zero Power Behavior
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-/*
-        // Arm Motor Zero Power Behavior
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Duck Motor Zero Power Behavior
-
-        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Turn on Run Using Encoder to use the built in PID controller
-
-
-        // Arm Encoders
-        duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-*/
-        // Drivetrain Encoders
-/*
-        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-        // Reset Encoders before starting OpMode
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-*/
+        robot.init(hardwareMap);
 
         // Tell the driver (by printing a message on the driver station) that initialization is complete.
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Sup", "Initialized");
     }
+
+    public void setPosition(double pos){
+        robot.armMotor.setTargetPosition((int) (robot.TICKS_PER_REV * pos));
+    }
+    public double getPosition(){
+        return robot.armMotor.getCurrentPosition()/robot.TICKS_PER_REV;
+    }
+
+
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -185,7 +92,7 @@ public class TeleOpBeta extends OpMode {
      */
     @Override
     public void start() {
-        runtime.reset();
+        robot.runtime.reset();
     }
 
     /*
@@ -205,90 +112,136 @@ public class TeleOpBeta extends OpMode {
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
         if (gamepad1.left_bumper) {
-            slowMode = 0.4;
+            robot.slowMode = 0.6;
         } else {
-            slowMode = 1;
+            robot.slowMode = 1;
         }
 
         leftPower    = drive + turn;
         rightPower   = drive - turn;
 
         // Send calculated power to wheels
-        leftFront.setPower(leftPower * slowMode);
-        leftRear.setPower(leftPower * slowMode);
-        rightFront.setPower(rightPower * slowMode);
-        rightRear.setPower(rightPower * slowMode);
+        robot.leftFront.setPower(leftPower * robot.slowMode);
+        robot.leftRear.setPower(leftPower * robot.slowMode);
+        robot.rightFront.setPower(rightPower * robot.slowMode);
+        robot.rightRear.setPower(rightPower * robot.slowMode);
 /*
-        // Arm code
-       if (gamepad1.dpad_up) {
-           armMotor.setPower(0.5);
-       }
+      if (gamepad1.b) {
+            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.armMotor.setPower(0.5);
+        }
 
-       if (gamepad1.dpad_down) {
-           armMotor.setPower(-0.5);
-       }
+ */
+      /*
+        if (gamepad1.dpad_up) {
+            //robot.armMotor.setPower(0.5);
+            robot.armMotor.setTargetPosition(armMotor.getCurrentPosition()+1);
+        }
 
-       if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-           armMotor.setPower(0);
-       }
+        if (gamepad1.dpad_down) {
+            //robot.armMotor.setPower(-0.5);
+            robot.armMotor.setTargetPosition(armMotor.getCurrentPosition()-1);
+        }
+
+        if (gamepad1.x) {
+            //robot.armMotor.setPower(0);
+            robot.armMotor.setTargetPosition(0);
+        }
+        */
 
         // Duck Code
 
-        if (gamepad1.right_trigger >= 0.1) {
-            duckMotor.setPower(0.75);
+        if (gamepad2.right_bumper) {
+            robot.duckMotor.setPower(0.75);
         }
-        if (gamepad1.left_trigger >= 0.1) {
-            duckMotor.setPower(-0.75);
+        if (gamepad2.left_bumper) {
+            robot.duckMotor.setPower(-0.75);
         }
-        if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1){
-            duckMotor.setPower(0);
+        if (!gamepad2.right_bumper && !gamepad2.left_bumper) {
+            robot.duckMotor.setPower(0);
         }
 
-       // Claw Code
-        if (gamepad1.y) {
-            leftClaw.setPosition(0);
-            rightClaw.setPosition(0.5);
+       // box servo code
+        if (gamepad2.left_trigger >= 0.1) {
+            robot.boxServo.setPosition(0);
+        } else {
+            robot.boxServo.setPosition(0.5);
         }
-        if (gamepad1.x) {
-            leftClaw.setPosition(0.2);
-            rightClaw.setPosition(0.5);
-        }
-*/
+
+
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
-            leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-/*
-            armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-            duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            */
+            robot.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+            robot.duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
         if (gamepad1.b) {
-            leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-/*
-            armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-            duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            */
+            robot.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
+            robot.duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
+
+        // High
+        if (gamepad2.y) {
+            robot.armMotor.setPower(0.5);
+            setPosition(1.3);
+            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        // Mid
+        if (gamepad2.b) {
+            robot.armMotor.setPower(0.5);
+            setPosition(0.95);
+            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        // Low
+        if (gamepad2.a) {
+            robot.armMotor.setPower(0.5);
+            setPosition(0.23);
+            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        // Intake Position
+        if (gamepad2.x) {
+            setPosition(0);
+            robot.armMotor.setPower(0);
+            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        // Intake Motor
+        if (gamepad1.right_trigger >= 0.1) {
+            robot.intakeMotor.setVelocity(5000);
+        }
+        if (gamepad1.left_trigger >= 0.1) {
+            robot.intakeMotor.setVelocity(-5000);
+        }
+        if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1) {
+            robot.intakeMotor.setVelocity(0);
+        }
+
+
+
 
 
         // Show the elapsed game time and wheel power.
 
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        cycles++;
-        telemetry.addData("Frequency", (int) (cycles / runtime.seconds()) + "hz");
+        telemetry.addData("Status", "Run Time: " + robot.runtime.toString());
+        robot.cycles++;
+        telemetry.addData("Frequency", (int) (robot.cycles / robot.runtime.seconds()) + "hz");
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-        //telemetry.addData("duck motor position", duckMotor.getCurrentPosition());
+        telemetry.addData("duck motor position", robot.duckMotor.getCurrentPosition());
+        telemetry.addData("arm motor position", robot.armMotor.getCurrentPosition());
+        telemetry.addData("arm motor position divided by tick per rev", robot.armMotor.getCurrentPosition()/383.6);
 
     }
 

@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwareBeta
+public class HardwareMapBeta
 {
     /* Public OpMode members. */
 
@@ -62,27 +62,34 @@ public class HardwareBeta
     public DcMotorEx rightFront = null;
     public DcMotorEx rightRear = null;
 
+    // Cycles variable (to calculate frequency)
+    public int cycles = 0;
+
+    // Slow mode variable for slow mode
+    double slowMode = 1;
+
     // Arm Motor
-    public DcMotor armMotor = null;
+    public DcMotorEx armMotor = null;
 
     // Duck Motor
     public DcMotorEx duckMotor = null;
 
+    // Intake Motor
+    public DcMotorEx intakeMotor = null;
+
     // Servos
 
-    public Servo leftClaw = null;
-    public Servo rightClaw = null;
+    public Servo boxServo = null;
 
-    public static final double MID_SERVO       =  0.5 ;
-    public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
+    // Constants
+    public final double TICKS_PER_REV = 383.6;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime runtime  = new ElapsedTime();
+    public ElapsedTime runtime  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareBeta(){
+    public HardwareMapBeta(){
 
     }
 
@@ -102,16 +109,18 @@ public class HardwareBeta
         rightRear  = hwMap.get(DcMotorEx.class, "rightRear");
 
         // Arm Motor Initialization
-        armMotor = hwMap.get(DcMotor.class,"armMotor  ");
+        armMotor = hwMap.get(DcMotorEx.class,"armMotor");
 
         // Duck Motor
 
         duckMotor = hwMap.get(DcMotorEx.class,"duckMotor");
 
-        // Servo Claw Initialization
+        // Intake Motor
 
-        leftClaw = hwMap.get(Servo.class,"leftClaw");
-        rightClaw = hwMap.get(Servo.class,"rightClaw");
+        intakeMotor = hwMap.get(DcMotorEx.class,"intakeMotor");
+
+        // Servo Initialization
+        boxServo = hwMap.get(Servo.class,"boxServo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -128,9 +137,11 @@ public class HardwareBeta
         // Duck Motor Directions
         duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        // Intake Motor Directions
+        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         // Servo Directions
-        leftClaw.setDirection(Servo.Direction.FORWARD);
-        rightClaw.setDirection(Servo.Direction.FORWARD);
+        boxServo.setDirection(Servo.Direction.FORWARD);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -142,19 +153,36 @@ public class HardwareBeta
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Arm Motor Zero Power Behavior
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         // Duck Motor Zero Power Behavior
 
         duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Duck Motor Zero Power Behavior
+
+        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Duck Motor Zero Power Behavior
+
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Turn on Run Using Encoder to use the built in PID controller
-        // Only do this if the motors are actually using encoders
 
 
         // Arm Encoders
-        duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
+
+        // Arm Encoders
+        intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        //duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        //duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Drivetrain Encoders
         /*
@@ -169,6 +197,7 @@ public class HardwareBeta
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         */
+
     }
 }
 

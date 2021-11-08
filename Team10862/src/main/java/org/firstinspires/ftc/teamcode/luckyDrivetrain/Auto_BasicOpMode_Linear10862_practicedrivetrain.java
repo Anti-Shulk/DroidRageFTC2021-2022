@@ -67,9 +67,6 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
 
 
     @Override
-
-    //Can I leave this here, so the project errors can be supressed?
-    // just fix the errors, but ill leave it
     @SuppressWarnings("FieldCanBeLocal")
 
     public void runOpMode() {
