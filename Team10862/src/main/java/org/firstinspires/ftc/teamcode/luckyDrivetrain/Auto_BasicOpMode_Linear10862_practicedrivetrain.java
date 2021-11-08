@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -56,12 +57,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFront = null;
-    private DcMotor leftRear = null;
-    private DcMotor rightFront = null;
-    private DcMotor rightRear = null;
-    private DcMotor carouselMotor = null;
-    private DcMotor otherMotor = null;
+    private DcMotorEx leftFront = null;
+    private DcMotorEx leftRear = null;
+    private DcMotorEx rightFront = null;
+    private DcMotorEx rightRear = null;
+    private DcMotorEx carouselMotor = null;
+    private DcMotorEx otherMotor = null;
     private Servo rightServo = null;
     private Servo leftServo = null;
 
@@ -77,27 +78,36 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone)
 
-        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-        carouselMotor = hardwareMap.get(DcMotor.class, "carouselMotor");
-        otherMotor = hardwareMap.get(DcMotor.class, "otherMotor");
+        leftFront  = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+        carouselMotor = hardwareMap.get(DcMotorEx.class, "carouselMotor");
+        otherMotor = hardwareMap.get(DcMotorEx.class, "otherMotor");
         rightServo = hardwareMap.get(Servo.class, "rightServo");
         leftServo = hardwareMap.get(Servo.class, "leftServo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
-        carouselMotor.setDirection(DcMotor.Direction.FORWARD);
-        otherMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
+
+        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+
+        //leftFront.setVelocity(400);
+                //386 = 1 turn);
+
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
-
         // Drivetrain Zero Power Behavior
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -111,17 +121,21 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            move("forward",2000 );
-            sleep(1000);
+            move("forward",200);
+            move("left",5 );
+            setPosition ("0.28");
+            otherMotor.setPower(-0.45);
+            sleep(200);
 
-            move("right", 90);
-            move("backward", 100);
+            setPosition ("0");
+            otherMotor.setPower(0);
+            move("backward", 180);
+            move("right", 45);
+            move("forward", 80);
+            sleep(100);
 
-            sleep(10000);
-
-            move("forward", 5000);
-            stop();
-
+            carouselMotor.setPower(0.5);
+            sleep(200);
             stop();
         }
 
@@ -154,33 +168,20 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         }
         sleep(distance);
     }
-    private void move (String direction, long distance, double power) {
-        if (direction.equals("forward")) {
-            leftFront.setPower(power);
-            rightFront.setPower(power);
-            leftRear.setPower(power);
-            rightRear.setPower(power);
+    private void setPosition (String position) {
+        if (position.equals("0")) {
+            rightServo.setPosition(0);
+            leftServo.setPosition(0);
         }
-        if (direction.equals("backward")) {
-            leftFront.setPower(-power);
-            rightFront.setPower(-power);
-            leftRear.setPower(-power);
-            rightRear.setPower(-power);
+        if (position.equals("0.28")) {
+            rightServo.setPosition(0.28);
+            leftServo.setPosition(0.28);
         }
-        if (direction.equals("left")) {
-            leftFront.setPower(-power);
-            rightFront.setPower(power);
-            leftRear.setPower(-power);
-            rightRear.setPower(power);
-        }
-        if (direction.equals("right")) {
-            leftFront.setPower(power);
-            rightFront.setPower(-power);
-            leftRear.setPower(power);
-            rightRear.setPower(-power);
-        }
-        sleep(distance);
     }
+
+
+
+
     private void moveStop (){
         leftFront.setPower(0);
         rightFront.setPower(0);

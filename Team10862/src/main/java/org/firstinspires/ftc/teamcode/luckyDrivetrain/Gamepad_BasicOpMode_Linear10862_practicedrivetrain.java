@@ -146,14 +146,14 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //Wouldn't the right power also be drive+turn?
 
             // Send calculated power to wheels
-            leftFront.setPower(leftPower);
-            leftRear.setPower(leftPower);
-            rightFront.setPower(rightPower);
-            rightRear.setPower(rightPower);
+            leftFront.setPower(leftPower*0.8);
+            leftRear.setPower(leftPower*0.8);
+            rightFront.setPower(rightPower*0.8);
+            rightRear.setPower(rightPower*0.8);
 
             //CarouselMotor
             if (gamepad2.right_bumper) {
-                carouselMotor.setPower(0.4);
+                carouselMotor.setPower(0.5);
             }
             if (gamepad2.left_bumper) {
                 carouselMotor.setPower(-0.4);
@@ -166,41 +166,52 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             //100 Milliseconds = 1 Second
             //Servo
 
-            posLeft = Math.min(Math.max(posLeft, 0), 0.5);
-            leftServo.setPosition(Math.min(Math.max(posLeft, 0), 0.5));
+            posLeft = Math.min(Math.max(posLeft, 0), 0.45);
+            leftServo.setPosition(Math.min(Math.max(posLeft, 0), 0.45));
 
-            posRight = Math.min(Math.max(posRight, 0), 0.5);
-            rightServo.setPosition(Math.min(Math.max(posRight, 0), 0.5));
+            posRight = Math.min(Math.max(posRight, 0), 0.45);
+            rightServo.setPosition(Math.min(Math.max(posRight, 0), 0.45));
             /* && means AND
             || means OR */
 
-
-            // trying to make triggers work for this.
             if (gamepad1.right_trigger > 0) {
-                posRight += gamepad1.right_trigger / 10;
+                posRight += gamepad1.right_trigger / 500;
+                posLeft += gamepad1.right_trigger / 500;
             }
             if (gamepad1.left_trigger > 0) {
-                posRight -= gamepad1.right_trigger / 10;
+                posRight -= gamepad1.left_trigger / 500;
+                posLeft -= gamepad1.left_trigger / 500;
             }
 
+            if (gamepad1.dpad_up) {
+                    posRight -= 0.0005;
+                    posLeft -= 0.0005;
+            }
+            if (gamepad1.dpad_down) {
+                posRight += 0.001;
+                posLeft += 0.001;
+            }
 
-            /*
-            if (gamepad1.a) {
-                    posRight -= 0.01;
-                    posLeft -= 0.01;
+            if (gamepad1.y) {
+                posRight = 0.0;
+                posLeft = 0.0;
             }
             if (gamepad1.b) {
-                posRight += 0.01;
-                posLeft += 0.01;
+                posRight = 0.15;
+                posLeft = 0.15;
             }
-            */
-
-
-
+            if (gamepad1.x) {
+                posRight = 0.28;
+                posLeft = 0.28;
+            }
+            if (gamepad1.a) {
+                posRight = 0.45;
+                posLeft = 0.45;
+            }
 
             //otherMotor (Intake/Outtake)
             if (gamepad1.right_bumper) {
-                otherMotor.setPower(0.65);
+                otherMotor.setPower(0.85);
             }
             if (gamepad1.left_bumper) {
                 otherMotor.setPower(-0.45);
