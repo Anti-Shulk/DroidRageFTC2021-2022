@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -64,17 +65,23 @@ public class StartDrive extends OpMode{
      */
     @Override
     public void loop() {
-        double left;
-        double right;
+
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        double leftPower;
+        double rightPower;
 
-        robot.leftDrive.setPower(left);
-        robot.backleftDrive.setPower(left);
-        robot.backrightDrive.setPower(right);
-        robot.rightDrive.setPower(right);
+
+
+        double drive = -gamepad1.left_stick_y;
+        double turn  =  gamepad1.right_stick_x;
+        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        robot.leftDrive.setPower(leftPower);
+        robot.backleftDrive.setPower(leftPower);
+        robot.backrightDrive.setPower(rightPower);
+        robot.rightDrive.setPower(rightPower);
 
         // Use gamepad left & right Bumpers to open and close the claw
         if (gamepad1.right_bumper)
@@ -95,10 +102,23 @@ public class StartDrive extends OpMode{
         else
             robot.Arm.setPower(0.0);
 
+        // Carosel
+        if (gamepad1.right_trigger)
+        {
+             robot.Carousel.setPower(0.6);
+        }
+        else if  (gamepad2.left_trigger)
+        {
+            robot.Carousel.setPower(-0.6);
+        }
+        else
+        {
+            robot.Carousel.setPower(0);
+        }
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-        telemetry.addData("left",  "%.2f", left);
-        telemetry.addData("right", "%.2f", right);
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
     /*

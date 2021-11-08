@@ -35,6 +35,7 @@ public class Hardware69
         public Servo    rightClaw   = null;
         public DcMotor backleftDrive = null;
         public DcMotor backrightDrive = null;
+        public DcMotor Carousel =  null;
 
         public static final double MID_SERVO       =  0.5 ;
         public static final double ARM_UP_POWER    =  0.45 ;
