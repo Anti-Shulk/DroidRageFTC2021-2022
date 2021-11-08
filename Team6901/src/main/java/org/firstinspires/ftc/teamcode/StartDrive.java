@@ -111,7 +111,8 @@ public class StartDrive extends OpMode{
         }
         else if  (gamepad2.left_trigger >= 0)
         {
-            robot.Carousel.setPower(-0.6);
+            robot.Carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.Carousel.setPower(0.6);
 
         }
         else

@@ -75,7 +75,7 @@ public class Hardware69
             backleftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backrightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+            Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
             // Set all motors to zero power
             leftDrive.setPower(0);
             backleftDrive.setPower(0);
