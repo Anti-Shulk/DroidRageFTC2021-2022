@@ -176,8 +176,8 @@ public class HardwareMapBeta
         armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
+        armMotor.setTargetPosition(0);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
 
         // Arm Encoders
         intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);

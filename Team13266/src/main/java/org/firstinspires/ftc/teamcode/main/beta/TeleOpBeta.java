@@ -214,7 +214,6 @@ public class TeleOpBeta extends OpMode {
         if (gamepad2.x) {
             setPosition(0);
             robot.armMotor.setPower(0);
-            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
