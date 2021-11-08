@@ -30,11 +30,12 @@ public class Hardware69
         /* Public OpMode members. */
         public DcMotor  leftDrive   = null;
         public DcMotor  rightDrive  = null;
-        public DcMotor  leftArm     = null;
+        public DcMotor  Arm     = null;
         public Servo    leftClaw    = null;
         public Servo    rightClaw   = null;
         public DcMotor backleftDrive = null;
         public DcMotor backrightDrive = null;
+        public DcMotor Carousel =  null;
 
         public static final double MID_SERVO       =  0.5 ;
         public static final double ARM_UP_POWER    =  0.45 ;
@@ -59,7 +60,7 @@ public class Hardware69
             rightDrive = hwMap.get(DcMotor.class, "right_drive");
             backleftDrive = hwMap.get(DcMotor.class, "BL_drive");
             backrightDrive = hwMap.get(DcMotor.class, "BR_drive");
-            leftArm    = hwMap.get(DcMotor.class, "left_arm");
+            Arm    = hwMap.get(DcMotor.class, "arm");
             leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
             rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
@@ -68,7 +69,7 @@ public class Hardware69
             backleftDrive.setPower(0);
             rightDrive.setPower(0);
             backrightDrive.setPower(0);
-            leftArm.setPower(0);
+            Arm.setPower(0);
 
             // Set all motors to run without encoders.
             // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -76,7 +77,7 @@ public class Hardware69
             backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
            /* leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

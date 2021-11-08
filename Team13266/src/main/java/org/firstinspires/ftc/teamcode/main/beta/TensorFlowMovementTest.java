@@ -51,8 +51,8 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-public class TensorFlowObjectDetectionTest extends LinearOpMode {
+@TeleOp(name = "Tensorflow Movement test", group = "Beta")
+public class TensorFlowMovementTest extends LinearOpMode {
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
    *  0: Ball,
@@ -145,10 +145,21 @@ public class TensorFlowObjectDetectionTest extends LinearOpMode {
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                         i++;
+
+                        if (recognition.getLabel().equals("Cube")) {
+                            if (recognition.getTop() < 1) {
+                                telemetry.addData("<", "Moving forward");
+
+                            }
+                            // move motor forward
+                        }
+                        // code ehre too i
                       }
                       telemetry.update();
                     }
                 }
+                // Code here ig
+
             }
         }
     }

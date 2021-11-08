@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode.main.beta;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -51,8 +50,8 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-public class TensorFlowObjectDetectionTest extends LinearOpMode {
+@TeleOp(name = "Tensorflow Duck Test", group = "Beta")
+public class TensorFlowTest2 extends LinearOpMode {
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
    *  0: Ball,
@@ -64,7 +63,7 @@ public class TensorFlowObjectDetectionTest extends LinearOpMode {
    *  FreightFrenzy_BC.tflite  0: Ball,  1: Cube
    *  FreightFrenzy_DM.tflite  0: Duck,  1: Marker
    */
-    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_BC.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
+    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/vision/FreightFrenzy_DM.tflite"; //For OpenRC, loaded from internal storage to reduce APK size
     private static final String[] LABELS = {
       "Ball",
       "Cube",
@@ -145,10 +144,21 @@ public class TensorFlowObjectDetectionTest extends LinearOpMode {
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                         i++;
+
+                        if (recognition.getLabel().equals("Duck")) {
+                            if (recognition.getLeft() < 1) {
+                                telemetry.addData("<", "Moving forward");
+
+                            }
+                            // move motor forward
+                        }
+                        // code ehre too i
                       }
                       telemetry.update();
                     }
                 }
+                // Code here ig
+
             }
         }
     }
