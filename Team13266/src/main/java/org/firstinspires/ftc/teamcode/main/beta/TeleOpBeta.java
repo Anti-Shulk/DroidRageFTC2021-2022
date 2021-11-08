@@ -317,23 +317,28 @@ public class TeleOpBeta extends OpMode {
 
         // High
         if (gamepad2.y) {
+            armMotor.setPower(0.5);
             setPosition(1.3);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         // Mid
         if (gamepad2.b) {
+            armMotor.setPower(0.5);
             setPosition(0.95);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         // Low
         if (gamepad2.a) {
+            armMotor.setPower(0.5);
             setPosition(0.23);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         // Intake Position
         if (gamepad2.x) {
             setPosition(0);
+            armMotor.setPower(0);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         // Intake Motor
