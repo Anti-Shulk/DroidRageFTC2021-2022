@@ -302,12 +302,25 @@ public class TeleOpBeta extends OpMode {
             duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
-        if (gamepad1.left_bumper) {
-            setPosition(0.5);
+        // High
+        if (gamepad2.y) {
+            setPosition(1.11);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (gamepad1.a) {
-            armMotor.setPower(1);
+        // Mid
+        if (gamepad2.b) {
+            setPosition(0.95);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        // Low
+        if (gamepad2.a) {
+            setPosition(0.23);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        // Intake
+        if (gamepad2.x) {
+            setPosition(0);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
 
