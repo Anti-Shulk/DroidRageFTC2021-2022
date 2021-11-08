@@ -74,6 +74,9 @@ public class TeleOpBeta extends OpMode {
     // Duck Motor
     private DcMotorEx duckMotor = null;
 
+    // Intake Motor
+    private DcMotorEx intakeMotor = null;
+
     // Servos
 
     private Servo boxServo = null;
@@ -104,6 +107,10 @@ public class TeleOpBeta extends OpMode {
 
         duckMotor = hardwareMap.get(DcMotorEx.class,"duckMotor");
 
+        // Intake Motor
+
+        intakeMotor = hardwareMap.get(DcMotorEx.class,"intakeMotor");
+
         // Servo Initialization
         boxServo = hardwareMap.get(Servo.class,"boxServo");
 
@@ -120,6 +127,9 @@ public class TeleOpBeta extends OpMode {
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Duck Motor Directions
+        duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Intake Motor Directions
         duckMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Servo Directions
@@ -141,6 +151,14 @@ public class TeleOpBeta extends OpMode {
 
         duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Duck Motor Zero Power Behavior
+
+        duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Duck Motor Zero Power Behavior
+
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Turn on Run Using Encoder to use the built in PID controller
 
 
@@ -150,6 +168,10 @@ public class TeleOpBeta extends OpMode {
 
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
+
+        // Arm Encoders
+        intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         //duckMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         //duckMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -308,10 +330,21 @@ public class TeleOpBeta extends OpMode {
             setPosition(0.23);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        // Intake
+        // Intake Position
         if (gamepad2.x) {
             setPosition(0);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        // Intake Motor
+        if (gamepad1.right_trigger >= 0.1) {
+            intakeMotor.setVelocity(5000);
+        }
+        if (gamepad1.left_trigger >= 0.1) {
+            intakeMotor.setVelocity(5000);
+        }
+        if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1) {
+            intakeMotor.setVelocity(0);
         }
 
 
