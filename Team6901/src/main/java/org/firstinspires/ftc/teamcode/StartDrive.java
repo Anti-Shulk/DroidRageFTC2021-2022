@@ -104,11 +104,11 @@ public class StartDrive extends OpMode{
             robot.Arm.setPower(0.0);
 
         // Carousel
-        if (gamepad1.right_trigger >= 0.1)
+        if (gamepad2.right_trigger >= 0.1)
         {
              robot.Carousel.setPower(0.6);
         }
-        else if  (gamepad1.left_trigger >= 0.1)
+        else if  (gamepad2.left_trigger >= 0.1)
         {
             robot.Carousel.setPower(-0.6);
         }
