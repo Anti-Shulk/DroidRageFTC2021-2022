@@ -143,6 +143,8 @@ public class HardwareMapBeta
         // Servo Directions
         boxServo.setDirection(Servo.Direction.FORWARD);
 
+        // Intake Direcitons
+        intakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
 
