@@ -108,7 +108,7 @@ public class StartDrive extends OpMode{
         {
              robot.Carousel.setPower(0.6);
         }
-        else if  (gamepad2.left_trigger >= 0.1)
+        else if  (gamepad1.left_trigger >= 0.1)
         {
             robot.Carousel.setPower(-0.6);
         }
