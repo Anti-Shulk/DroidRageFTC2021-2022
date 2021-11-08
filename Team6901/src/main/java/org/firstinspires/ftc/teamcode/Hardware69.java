@@ -67,6 +67,7 @@ public class Hardware69
             rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
             backrightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
             Arm.setDirection(DcMotorSimple.Direction.REVERSE);
+            Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
 
             // set to brake mode
             leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
