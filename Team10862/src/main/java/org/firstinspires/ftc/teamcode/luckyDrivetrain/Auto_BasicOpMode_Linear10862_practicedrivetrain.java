@@ -123,19 +123,19 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
 
             move("forward",200);
             move("left",5 );
-
+            setPosition ("0.28");
             otherMotor.setPower(-0.45);
             sleep(200);
 
-
-
+            setPosition ("0");
+            otherMotor.setPower(0);
             move("backward", 180);
+            move("right", 45);
+            move("forward", 80);
+            sleep(100);
 
-            sleep(1000);
-
-            move("forward", 5000);
-            stop();
-
+            carouselMotor.setPower(0.5);
+            sleep(200);
             stop();
         }
 
@@ -168,10 +168,20 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         }
         sleep(distance);
     }
-    private void move (String position) {
-
-
+    private void setPosition (String position) {
+        if (position.equals("0")) {
+            rightServo.setPosition(0);
+            leftServo.setPosition(0);
+        }
+        if (position.equals("0.28")) {
+            rightServo.setPosition(0.28);
+            leftServo.setPosition(0.28);
+        }
     }
+
+
+
+
     private void moveStop (){
         leftFront.setPower(0);
         rightFront.setPower(0);

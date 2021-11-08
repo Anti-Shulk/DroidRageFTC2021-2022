@@ -153,7 +153,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
 
             //CarouselMotor
             if (gamepad2.right_bumper) {
-                carouselMotor.setPower(0.4);
+                carouselMotor.setPower(0.5);
             }
             if (gamepad2.left_bumper) {
                 carouselMotor.setPower(-0.4);
@@ -212,7 +212,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
 
             //otherMotor (Intake/Outtake)
             if (gamepad1.right_bumper) {
-                otherMotor.setPower(0.9);
+                otherMotor.setPower(0.85);
             }
             if (gamepad1.left_bumper) {
                 otherMotor.setPower(-0.45);
