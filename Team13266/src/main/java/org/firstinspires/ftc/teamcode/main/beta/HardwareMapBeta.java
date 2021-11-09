@@ -126,10 +126,10 @@ public class HardwareMapBeta
         // Reverse the motor that runs backwards when connected directly to the battery
 
         // Drivetrain Motor Directions
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
-        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
-        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        leftRear.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
         // Arm Motor Directions
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);

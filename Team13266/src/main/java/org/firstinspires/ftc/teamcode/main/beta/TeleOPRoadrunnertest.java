@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.main;
+package org.firstinspires.ftc.teamcode.main.beta;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.drive.Drive13266;
  */
 @TeleOp(group = "drive")
 @Disabled
-public class TeleOP extends LinearOpMode {
+public class TeleOPRoadrunnertest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Drive13266 drive = new Drive13266(hardwareMap);

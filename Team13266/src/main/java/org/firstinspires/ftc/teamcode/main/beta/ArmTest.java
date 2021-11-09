@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Config // adds all of the hardware into ftc dashboard
-@TeleOp(name = "ArmTest")
+@TeleOp(name = "ArmTest", group = "Beta")
 public class ArmTest extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MotorEx leftFront;
