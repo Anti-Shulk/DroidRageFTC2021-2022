@@ -210,11 +210,13 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             }
 
             //otherMotor (Intake/Outtake)
+            //intake
             if (gamepad1.right_bumper) {
-                otherMotor.setPower(0.85);
+                otherMotor.setPower(1);
             }
+            //outtake
             if (gamepad1.left_bumper) {
-                otherMotor.setPower(-0.45);
+                otherMotor.setPower(-0.4);
             }
 
             // ! means not

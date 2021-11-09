@@ -97,10 +97,10 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
 
-        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        /*leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
 
 
         //leftFront.setVelocity(400);
@@ -122,34 +122,24 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            setPosition("0");
-            move("forward",900);
-            move("left",45);
-            move("forward", 15);
-            setPosition ("0.28");
+            move("forward", 200);
+            move("left",5 );
+            leftServo.setPosition (0.28);
+            rightServo.setPosition (0.28);
+            sleep(50);
+            otherMotor.setPower(-0.45);
             sleep(200);
 
-            otherMotor.setPower(-0.45);
-            otherMotor.setPower(-0.45);
-            otherMotor.setPower(-0.45);
-            otherMotor.setPower(-0.45);
-            sleep(400);
-
-            move("right", 45);
-            setPosition ("0");
+            leftServo.setPosition (0);
+            leftServo.setPosition (0);
             otherMotor.setPower(0);
-            sleep(200);
-
-            move("backward", 700);
+            move("backward", 180);
             move("right", 45);
-            move("forward", 180);
+            move("forward", 80);
             sleep(100);
 
             carouselMotor.setPower(0.5);
-            sleep(100);
-
-            move("left", 45);
-            move("forward", 150);
+            sleep(200);
             stop();
         }
 
