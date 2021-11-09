@@ -30,9 +30,7 @@
 package org.firstinspires.ftc.teamcode.luckyDrivetrain;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -52,9 +50,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Practice Auto", group="Linear Opmode")
+@Autonomous(name="Blue Carousel Simple", group="Linear Opmode")
 
-public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMode {
+public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotorEx leftFront = null;
@@ -96,10 +94,10 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
 
-        leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        /*leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
 
 
         //leftFront.setVelocity(400);
@@ -121,27 +119,17 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            move("forward",900);
-            move("left",45);
-            setPosition ("0.28");
-            otherMotor.setPower(-0.45);
-            otherMotor.setPower(-0.45);
-            sleep(200);
-
-            move("right", 45);
-            sleep(100);
-
-            setPosition ("0");
-            otherMotor.setPower(0);
-            sleep(200);
-
-            move("backward", 1800);
-            move("right", 50);
-            move("forward", 180);
+            setPosition("0");
+            move("right", 90);
+            move("forward", 100);
             sleep(100);
 
             carouselMotor.setPower(0.5);
-            sleep(200);
+            carouselMotor.setPower(0.5);
+            sleep(100);
+
+            move("left", 90);
+            move("forward", 100);
             stop();
         }
 
@@ -160,13 +148,13 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
             leftRear.setPower(-power);
             rightRear.setPower(-power);
         }
-        if (direction.equals("right")) {
+        if (direction.equals("left")) {
             leftFront.setPower(-power);
             rightFront.setPower(power);
             leftRear.setPower(-power);
             rightRear.setPower(power);
         }
-        if (direction.equals("left")) {
+        if (direction.equals("right")) {
             leftFront.setPower(power);
             rightFront.setPower(-power);
             leftRear.setPower(power);
