@@ -51,8 +51,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOP Beta", group="Beta")
-public class TeleOpBeta extends OpMode {
+@TeleOp(name="TeleOP 13266")
+public class TeleOp13266 extends OpMode {
     HardwareMapBeta robot = new HardwareMapBeta();
 
     /*
@@ -213,16 +213,15 @@ public class TeleOpBeta extends OpMode {
         // Intake Position
         if (gamepad2.x) {
             setPosition(0);
-            robot.armMotor.setPower(0);
             robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         // Intake Motor
         if (gamepad1.right_trigger >= 0.1) {
-            robot.intakeMotor.setVelocity(5000);
+            robot.intakeMotor.setVelocity(1000);
         }
         if (gamepad1.left_trigger >= 0.1) {
-            robot.intakeMotor.setVelocity(-5000);
+            robot.intakeMotor.setVelocity(-1000);
         }
         if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1) {
             robot.intakeMotor.setVelocity(0);
