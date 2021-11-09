@@ -121,17 +121,23 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            move("forward",200);
-            move("left",5 );
+            move("forward",900);
+            move("left",45);
             setPosition ("0.28");
+            otherMotor.setPower(-0.45);
             otherMotor.setPower(-0.45);
             sleep(200);
 
+            move("right", 45);
+            sleep(100);
+
             setPosition ("0");
             otherMotor.setPower(0);
-            move("backward", 180);
-            move("right", 45);
-            move("forward", 80);
+            sleep(200);
+
+            move("backward", 1800);
+            move("right", 50);
+            move("forward", 180);
             sleep(100);
 
             carouselMotor.setPower(0.5);
@@ -141,7 +147,7 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
 
     }
     private void move (String direction, long distance) {
-        double power = 0.5;
+        double power = 0.7;
         if (direction.equals("forward")) {
             leftFront.setPower(power);
             rightFront.setPower(power);
@@ -154,13 +160,13 @@ public class Auto_BasicOpMode_Linear10862_practicedrivetrain extends LinearOpMod
             leftRear.setPower(-power);
             rightRear.setPower(-power);
         }
-        if (direction.equals("left")) {
+        if (direction.equals("right")) {
             leftFront.setPower(-power);
             rightFront.setPower(power);
             leftRear.setPower(-power);
             rightRear.setPower(power);
         }
-        if (direction.equals("right")) {
+        if (direction.equals("left")) {
             leftFront.setPower(power);
             rightFront.setPower(-power);
             leftRear.setPower(power);
