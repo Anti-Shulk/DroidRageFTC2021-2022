@@ -133,6 +133,7 @@ public class StartDrive extends OpMode{
         }
 
         //arm
+        /*
         if (gamepad2.left_stick_y > 0.1) {
             robot.Arm.setPower(1000);
         }
@@ -142,6 +143,9 @@ public class StartDrive extends OpMode{
         if (gamepad2.left_stick_y < 0.1 && gamepad2.left_stick_y > -0.1) {
             robot.Arm.setVelocity(0);
         }
+        */
+        final double ARM_SPEED = 500;
+        robot.Arm.setPower(gamepad2.left_stick_y * ARM_SPEED);
 /*
         // arm postiion code
         // High
