@@ -53,7 +53,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Blue Carousel Side", group="Linear Opmode")
-@Disabled
 
 public class BlueCarousel_LinearOpMode extends LinearOpMode {
 
