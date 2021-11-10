@@ -35,6 +35,8 @@ public class StartDrive extends OpMode{
     double          clawOffset  = 0.0 ;                  // Servo mid position
     final double    CLAW_SPEED  = 0.5 ;                 // sets rate to move servo
 
+        double armPos = 0;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -113,6 +115,7 @@ public class StartDrive extends OpMode{
          */
 
         // Use gamepad buttons to move the arm up (Y) and down (A)
+        /*
         if (gamepad2.left_stick_y >= 0.1)
             robot.Arm.setPower(robot.ARM_UP_POWER);
         else if (gamepad2.left_stick_y < -0.1)
@@ -120,13 +123,15 @@ public class StartDrive extends OpMode{
         else
             robot.Arm.setPower(0.0);
 
+         */
+
         // Carousel
 
         if (gamepad2.right_bumper) {
-            robot.Carousel.setPower(0.75);
+            robot.Carousel.setPower(0.45);
         }
         if (gamepad2.left_bumper) {
-            robot.Carousel.setPower(-0.75);
+            robot.Carousel.setPower(-0.45);
         }
         if (!gamepad2.right_bumper && !gamepad2.left_bumper) {
             robot.Carousel.setPower(0);
@@ -174,6 +179,18 @@ public class StartDrive extends OpMode{
         if (gamepad2.x) {
             setPosition(0);
             robot.Arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        if (gamepad2.dpad_up) {
+            armPos = armPos + 1;
+            robot.Arm.setPower(0.5);
+            setPosition(armPos);
+            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (gamepad2.dpad_down) {
+            armPos = armPos - 1;
+            robot.Arm.setPower(0.5);
+            setPosition(armPos);
+            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         // Send telemetry message to signify robot running;
