@@ -144,9 +144,12 @@ public class StartDrive extends OpMode{
             robot.Arm.setVelocity(0);
         }
         */
+        /*
         final double ARM_SPEED = 500;
         robot.Arm.setPower(gamepad2.left_stick_y * ARM_SPEED);
-/*
+
+         */
+
         // arm postiion code
         // High
 
@@ -173,7 +176,6 @@ public class StartDrive extends OpMode{
             robot.Arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
- */
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);
         //telemetry.addData("Status", "Run Time: " + runtime.toString());
