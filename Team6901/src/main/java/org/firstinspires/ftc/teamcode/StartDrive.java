@@ -36,6 +36,7 @@ public class StartDrive extends OpMode{
     final double    CLAW_SPEED  = 0.5 ;                 // sets rate to move servo
 
         double armPos = -0.62;
+        double slow = 0.3;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -76,12 +77,16 @@ public class StartDrive extends OpMode{
         }
     @Override
     public void loop() {
-
+        if (gamepad1.right_trigger >= 0.3) {
+            slow = 0.3;
+        }
+        else{
+            slow = 1;
+        }
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         double leftPower;
         double rightPower;
-        double slow = 1;
 
 
 
@@ -108,12 +113,7 @@ public class StartDrive extends OpMode{
         }
 
 
-        if (gamepad1.right_trigger >= 0.3) {
-            slow = 0.3;
-        }
-        else{
-            slow = 1;
-        }
+
         // Open
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
