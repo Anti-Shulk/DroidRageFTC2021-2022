@@ -109,10 +109,10 @@ public class StartDrive extends OpMode{
 
 
         if (gamepad1.right_trigger >= 0.3) {
-            slow = 1;
+            slow = 0.3;
         }
         else{
-            slow = 0.3;
+            slow = 1;
         }
         // Open
 
