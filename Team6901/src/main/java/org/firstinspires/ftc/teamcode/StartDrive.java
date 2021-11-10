@@ -81,6 +81,7 @@ public class StartDrive extends OpMode{
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         double leftPower;
         double rightPower;
+        double slow = 1;
 
 
 
@@ -89,10 +90,10 @@ public class StartDrive extends OpMode{
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        robot.leftDrive.setPower(leftPower);
-        robot.backleftDrive.setPower(leftPower);
-        robot.backrightDrive.setPower(rightPower);
-        robot.rightDrive.setPower(rightPower);
+        robot.leftDrive.setPower(leftPower * slow);
+        robot.backleftDrive.setPower(leftPower * slow);
+        robot.backrightDrive.setPower(rightPower * slow);
+        robot.rightDrive.setPower(rightPower * slow);
 
         // Use gamepad left & right Bumpers to open and close the claw
         // CLose
@@ -105,6 +106,15 @@ public class StartDrive extends OpMode{
             robot.leftClaw.setPosition(0.3);
             robot.rightClaw.setPosition(0.4);
         }
+
+
+        if (gamepad1.right_trigger >= 0.3) {
+            slow = 1;
+        }
+        else{
+            slow = 0.3;
+        }
+        // Open
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
         /*
@@ -128,10 +138,10 @@ public class StartDrive extends OpMode{
         // Carousel
 
         if (gamepad2.right_bumper) {
-            robot.Carousel.setPower(0.45);
+            robot.Carousel.setPower(0.3);
         }
         if (gamepad2.left_bumper) {
-            robot.Carousel.setPower(-0.45);
+            robot.Carousel.setPower(-0.3);
         }
         if (!gamepad2.right_bumper && !gamepad2.left_bumper) {
             robot.Carousel.setPower(0);
