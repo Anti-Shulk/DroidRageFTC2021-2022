@@ -148,26 +148,25 @@ public class StartDrive extends OpMode{
         }
 
         //arm
-        /*
-        if (gamepad2.left_stick_y > 0.1) {
-            robot.Arm.setPower(1000);
+
+        if (gamepad2.dpad_up) {
+            robot.Arm.setPower(500);
         }
-        if (gamepad2.left_stick_y < -0.1) {
-            robot.Arm.setVelocity(-1000);
+        if (gamepad2.dpad_down) {
+            robot.Arm.setVelocity(-500);
         }
-        if (gamepad2.left_stick_y < 0.1 && gamepad2.left_stick_y > -0.1) {
+        if (gamepad2.dpad_up && gamepad2.dpad_down) {
             robot.Arm.setVelocity(0);
         }
-        */
-        /*
-        final double ARM_SPEED = 500;
-        robot.Arm.setPower(gamepad2.left_stick_y * ARM_SPEED);
 
-         */
+
+        final double ARM_SPEED = 500;
+        robot.Arm.setVelocity(gamepad2.left_stick_y * ARM_SPEED);
+
 
         // arm postiion code
         // High
-
+/*
         if (gamepad2.y) {
             robot.Arm.setPower(0.5);
             setPosition(-0.62);
@@ -202,6 +201,8 @@ public class StartDrive extends OpMode{
             setPosition(armPos);
             robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+
+ */
 
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);

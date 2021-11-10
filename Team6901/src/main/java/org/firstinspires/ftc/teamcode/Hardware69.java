@@ -98,8 +98,8 @@ public class Hardware69
             Arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
 
-            Arm.setTargetPosition(0);
-            Arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            //Arm.setTargetPosition(0);
+//            Arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
 
 
