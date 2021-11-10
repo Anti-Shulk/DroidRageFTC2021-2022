@@ -4,11 +4,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import static android.os.SystemClock.sleep;
 
-@TeleOp(name="Servo Position Programmer")
+@TeleOp(name="Servo Position Programmer", group="Program")
 public class ServoPositionProgrammer extends OpMode {
     //hardware initialization stuff
     Servo servo;
