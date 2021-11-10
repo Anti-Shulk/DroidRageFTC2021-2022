@@ -35,7 +35,7 @@ public class StartDrive extends OpMode{
     double          clawOffset  = 0.0 ;                  // Servo mid position
     final double    CLAW_SPEED  = 0.5 ;                 // sets rate to move servo
 
-        double armPos = 0;
+        double armPos = -0.62;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -181,13 +181,13 @@ public class StartDrive extends OpMode{
             robot.Arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
         if (gamepad2.dpad_up) {
-            armPos = armPos + 1;
+            armPos = armPos - 0.005;
             robot.Arm.setPower(0.5);
             setPosition(armPos);
             robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         if (gamepad2.dpad_down) {
-            armPos = armPos - 1;
+            armPos = armPos + 0.005;
             robot.Arm.setPower(0.5);
             setPosition(armPos);
             robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -198,6 +198,7 @@ public class StartDrive extends OpMode{
         //telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("arm motor position divided by tick per rev", robot.Arm.getCurrentPosition()/383.6);
+        telemetry.addData("Arm position: ", armPos);
     }
 
     /*
