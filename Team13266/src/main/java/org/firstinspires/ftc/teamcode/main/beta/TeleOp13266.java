@@ -162,12 +162,13 @@ public class TeleOp13266 extends OpMode {
         }
 
        // box servo code
+        /*
         if (gamepad2.left_trigger >= 0.1) {
             robot.boxServo.setPosition(0);
         } else {
             robot.boxServo.setPosition(0.5);
         }
-
+*/
 
         // Change motors between BRAKE and FLOAT zero power modes
         if (gamepad1.a) {
@@ -192,28 +193,46 @@ public class TeleOp13266 extends OpMode {
             robot.duckMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
+        final double BOX_SERVO_UP = 0.65;
+        final double BOX_SERVO_INTAKE = 1.0;
+        final double BOX_SERVO_DROP = 0.19;
         // High
-        if (gamepad2.y) {
+        if (gamepad2.dpad_up) {
             robot.armMotor.setPower(0.5);
-            setPosition(1.3);
+            setPosition(1.5);
             robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.boxServo.setPosition(BOX_SERVO_UP);
         }
         // Mid
-        if (gamepad2.b) {
+        if (gamepad2.dpad_right) {
             robot.armMotor.setPower(0.5);
-            setPosition(0.95);
+            setPosition(0.90);
             robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.boxServo.setPosition(BOX_SERVO_UP);
         }
-        // Low
-        if (gamepad2.a) {
+        // Lower
+        if (gamepad2.dpad_down) {
             robot.armMotor.setPower(0.5);
-            setPosition(0.23);
+            setPosition(0.4);
             robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.boxServo.setPosition(BOX_SERVO_UP);
+
+
         }
-        // Intake Position
-        if (gamepad2.x) {
+        // intake/reset position
+        if (gamepad2.dpad_left) {
             setPosition(0);
             robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.boxServo.setPosition(BOX_SERVO_INTAKE);
+        }
+        if (gamepad2.a) {
+            robot.boxServo.setPosition(BOX_SERVO_INTAKE);
+        }
+        if (gamepad2.x) {
+            robot.boxServo.setPosition(BOX_SERVO_DROP);
+        }
+        if (gamepad2.y) {
+            robot.boxServo.setPosition(BOX_SERVO_UP);
         }
 
         // Intake Motor
@@ -231,6 +250,7 @@ public class TeleOp13266 extends OpMode {
 
 
 
+
         // Show the elapsed game time and wheel power.
 
         telemetry.addData("Status", "Run Time: " + robot.runtime.toString());
@@ -239,6 +259,7 @@ public class TeleOp13266 extends OpMode {
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("duck motor position", robot.duckMotor.getCurrentPosition());
         telemetry.addData("arm motor position", robot.armMotor.getCurrentPosition());
+        telemetry.addData("box position", robot.boxServo.getPosition());
         telemetry.addData("arm motor position divided by tick per rev", robot.armMotor.getCurrentPosition()/383.6);
 
     }
