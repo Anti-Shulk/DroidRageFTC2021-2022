@@ -101,10 +101,8 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
 
-
-        //leftFront.setVelocity(400);
-                //386 = 1 turn);
-
+        leftServo.setPosition (0);
+        rightServo.setPosition (0);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -120,25 +118,32 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            move("forward", 700);
+            sleep(50);
 
-            move("forward", 200);
-            move("left",5 );
+            move("left",1);
             leftServo.setPosition (0.28);
             rightServo.setPosition (0.28);
             sleep(50);
+
             otherMotor.setPower(-0.45);
-            sleep(200);
+            sleep(500);
 
             leftServo.setPosition (0);
-            leftServo.setPosition (0);
+            rightServo.setPosition (0);
             otherMotor.setPower(0);
-            move("backward", 180);
-            move("right", 45);
-            move("forward", 80);
+            move("right", 1);
+            move("backward", 800);
+            move("right", 5);
             sleep(100);
 
             carouselMotor.setPower(0.5);
+            move("forward", 85);
             sleep(200);
+
+            carouselMotor.setPower(0);
+            move("left", 5);
+            move("forward", 100);
             stop();
         }
 

@@ -216,7 +216,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             }
             //outtake
             if (gamepad1.left_bumper) {
-                otherMotor.setPower(-0.4);
+                otherMotor.setPower(-0.65);
             }
 
             // ! means not
