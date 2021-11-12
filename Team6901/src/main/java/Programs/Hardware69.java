@@ -1,5 +1,7 @@
 package Programs;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -33,8 +35,7 @@ public class Hardware69
         public DcMotor  leftDrive   = null;
         public DcMotor  rightDrive  = null;
         public DcMotorEx  Arm     = null;
-        public Servo    leftClaw    = null;
-        public Servo    rightClaw   = null;
+        public DcMotor intake =  null;
         public DcMotor backleftDrive = null;
         public DcMotor backrightDrive = null;
         public DcMotor Carousel =  null;
@@ -65,11 +66,14 @@ public class Hardware69
             backrightDrive = hwMap.get(DcMotor.class, "BR_drive");
             Arm    = hwMap.get(DcMotorEx.class, "arm");
             Carousel = hwMap.get(DcMotor.class, "Rotate");
+           intake = hwMap.get(DcMotor.class, "intake");
+
             leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
             rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
             backrightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
             Arm.setDirection(DcMotorSimple.Direction.REVERSE);
             Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
+            intake.setDirection(DcMotor.Direction.FORWARD);
 
             // set to brake mode
             leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -78,12 +82,15 @@ public class Hardware69
             backrightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
             // Set all motors to zero power
             leftDrive.setPower(0);
             backleftDrive.setPower(0);
             rightDrive.setPower(0);
             backrightDrive.setPower(0);
             Arm.setPower(0);
+            intake.setPower(0);
 
             // Set all motors to run without encoders.
             // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -109,13 +116,7 @@ public class Hardware69
             backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             */
             // Define and initialize ALL installed servos.
-            leftClaw  = hwMap.get(Servo.class, "left_claw");
-            rightClaw = hwMap.get(Servo.class, "right_claw");
-            /*
-            leftClaw.setPosition(MID_SERVO);
-            rightClaw.setPosition(MID_SERVO);
 
-             */
         }
     }
 

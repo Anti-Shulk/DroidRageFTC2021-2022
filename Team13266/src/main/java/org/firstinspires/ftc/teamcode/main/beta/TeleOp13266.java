@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -112,13 +113,13 @@ public class TeleOp13266 extends OpMode {
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
         if (gamepad1.left_bumper) {
-            robot.slowMode = 0.6;
-        } else {
             robot.slowMode = 1;
+        } else {
+            robot.slowMode = 0.6;
         }
 
-        leftPower    = drive + turn;
-        rightPower   = drive - turn;
+        leftPower    = Range.clip(drive + turn, -1.0, 1.0);
+        rightPower   = Range.clip(drive - turn, -1.0, 1.0);
 
         // Send calculated power to wheels
         robot.leftFront.setPower(leftPower * robot.slowMode);
@@ -152,10 +153,10 @@ public class TeleOp13266 extends OpMode {
         // Duck Code
 
         if (gamepad2.right_bumper) {
-            robot.duckMotor.setPower(0.75);
+            robot.duckMotor.setPower(0.4);
         }
         if (gamepad2.left_bumper) {
-            robot.duckMotor.setPower(-0.75);
+            robot.duckMotor.setPower(-0.4);
         }
         if (!gamepad2.right_bumper && !gamepad2.left_bumper) {
             robot.duckMotor.setPower(0);
@@ -221,7 +222,7 @@ public class TeleOp13266 extends OpMode {
         }
         // intake/reset position
         if (gamepad2.dpad_left) {
-            setPosition(0);
+            setPosition(-0.1);
             robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             robot.boxServo.setPosition(BOX_SERVO_INTAKE);
         }
@@ -237,10 +238,10 @@ public class TeleOp13266 extends OpMode {
 
         // Intake Motor
         if (gamepad1.right_trigger >= 0.1) {
-            robot.intakeMotor.setVelocity(1000);
+            robot.intakeMotor.setVelocity(-1000);
         }
         if (gamepad1.left_trigger >= 0.1) {
-            robot.intakeMotor.setVelocity(-1000);
+            robot.intakeMotor.setVelocity(1000);
         }
         if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1) {
             robot.intakeMotor.setVelocity(0);

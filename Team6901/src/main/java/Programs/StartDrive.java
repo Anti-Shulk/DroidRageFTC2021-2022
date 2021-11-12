@@ -94,16 +94,19 @@ public class StartDrive extends OpMode{
         robot.backrightDrive.setPower(rightPower * slow);
         robot.rightDrive.setPower(rightPower * slow);
 
-        // Use gamepad left & right Bumpers to open and close the claw
+        double intakeSpeed = 0.8;
+
+     //   intake.SetPower (intakeSpeed);
+        // Use gamepad left & right trigger to open and close the intake
         // CLose
-        if (gamepad2.right_trigger >= 0.2) {
-            robot.leftClaw.setPosition(0.6);
-            robot.rightClaw.setPosition(0.1);
+        if (gamepad1.right_bumper) {
+            robot.intake.setPower(1);
         }
-        // Open
-        if (gamepad2.left_trigger >= 0.2) {
-            robot.leftClaw.setPosition(0.3);
-            robot.rightClaw.setPosition(0.4);
+        if (gamepad1.left_bumper) {
+            robot.intake.setPower(-1);
+        }
+        if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
+            robot.intake.setPower(0);
         }
 
 
