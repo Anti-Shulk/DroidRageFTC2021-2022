@@ -8,14 +8,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.drive.Drive13266;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="RoadRunnerAutoBeta", group="Beta")
-public class RoadRunnerAutoBeta extends LinearOpMode {
+@Autonomous(name="Blue Top Road Runner", group="Beta")
+public class BlueTop extends LinearOpMode {
     @Override
     public void runOpMode() {
         Drive13266 drive = new Drive13266(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-47, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(0, 65, Math.toRadians(90));
         ElapsedTime timer = new ElapsedTime();
 
         drive.setPoseEstimate(startPose);
@@ -23,8 +24,10 @@ public class RoadRunnerAutoBeta extends LinearOpMode {
         // the center of the field facing straight (we'll discuss the coordinate system later). If
         // you want to set your starting position to something else, say x: 5, y: -4, at a 90 degree
         // turn, you would replace new Pose2d() with new Pose2d(5, -4, Math.toRadians(90)).
-        Trajectory myTrajectroy = drive.trajectoryBuilder(new Pose2d(-47, 60, Math.toRadians(270)))
-                .splineTo(new Vector2d(-61, 53), Math.toRadians(60))
+        TrajectorySequence myTrajectroy = drive.trajectorySequenceBuilder(new Pose2d(0, 65, Math.toRadians(90)))
+                .back(15)
+                .turn(Math.toRadians(-30))
+
                 // Notice there is no ; this is bc the line doesn't actually end here but we make
                 // it a new line to make it look nice.
 
@@ -66,6 +69,6 @@ public class RoadRunnerAutoBeta extends LinearOpMode {
 
         if(isStopRequested()) return;
 
-        drive.followTrajectory((myTrajectroy));
+        drive.followTrajectorySequence((myTrajectroy));
     }
 }
