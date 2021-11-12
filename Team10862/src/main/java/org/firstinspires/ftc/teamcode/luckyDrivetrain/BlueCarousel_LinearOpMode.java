@@ -101,8 +101,8 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
 
-        leftServo.setPosition (0);
-        rightServo.setPosition (0);
+        leftServo.setPosition (0.28);
+        rightServo.setPosition (0.28);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -119,10 +119,15 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             move("forward", 700);
-            sleep(200);
+            leftFront.setPower(1);
+            sleep(700)
+            sleep(250);
+            moveStop();
+            sleep(10);
 
-            move("left",1);
-            sleep(50);
+            move("left", 1);
+            sleep(10);
+            moveStop();
 
             leftServo.setPosition (0.28);
             rightServo.setPosition (0.28);
@@ -131,27 +136,33 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
             otherMotor.setPower(-0.45);
             sleep(500);
 
+            otherMotor.setPower(0);
             leftServo.setPosition (0);
             rightServo.setPosition (0);
-            otherMotor.setPower(0);
-            sleep(50);
+            sleep(5000);
 
             move("right", 1);
-            sleep(50);
+            sleep(10);
+            moveStop();
 
             move("backward", 800);
             sleep(200);
+            moveStop();
+            sleep(10);
 
             move("right", 5);
             sleep(50);
+            moveStop();
 
             carouselMotor.setPower(0.5);
             move("forward", 85);
             sleep(200);
+            moveStop();
 
             carouselMotor.setPower(0);
             move("left", 5);
             sleep(100);
+            moveStop();
 
             move("forward", 100);
             stop();
@@ -159,7 +170,7 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
 
     }
     private void move (String direction, long distance) {
-        double power = 0.7;
+        double power = 0.5;
         if (direction.equals("forward")) {
             leftFront.setPower(power);
             rightFront.setPower(power);
