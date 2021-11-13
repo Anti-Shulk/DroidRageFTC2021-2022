@@ -1,10 +1,7 @@
-package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import static android.os.SystemClock.sleep;

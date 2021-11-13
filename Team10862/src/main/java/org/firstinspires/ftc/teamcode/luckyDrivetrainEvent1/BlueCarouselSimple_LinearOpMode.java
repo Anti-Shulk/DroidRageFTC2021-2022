@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -93,16 +93,14 @@ public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        //Setting Servo Positions
+        leftServo.setPosition(0);
+        rightServo.setPosition(0);
 
-        /*leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
-
-
-        //leftFront.setVelocity(400);
-                //386 = 1 turn);
-
+        leftFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -112,30 +110,33 @@ public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses PLAY) - Start Line
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
+        // run until the end of the match (driver presses STOP)  -
         while (opModeIsActive()) {
 
             setPosition("0");
-            move("right", 90);
-            move("forward", 100);
+            move("right", 490);
+            move("forward", 1050);
+            moveStop();
             sleep(100);
 
             carouselMotor.setPower(0.5);
             carouselMotor.setPower(0.5);
-            sleep(100);
+            sleep(800);
 
-            move("left", 90);
-            move("forward", 100);
+            move("backward", 120);
+
+            move("left", 490);
+            move("forward", 900);
             stop();
         }
 
     }
     private void move (String direction, long distance) {
-        double power = 0.7;
+        double power = 0.5;
         if (direction.equals("forward")) {
             leftFront.setPower(power);
             rightFront.setPower(power);
@@ -148,13 +149,13 @@ public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
             leftRear.setPower(-power);
             rightRear.setPower(-power);
         }
-        if (direction.equals("left")) {
+        if (direction.equals("right")) {
             leftFront.setPower(-power);
             rightFront.setPower(power);
             leftRear.setPower(-power);
             rightRear.setPower(power);
         }
-        if (direction.equals("right")) {
+        if (direction.equals("left")) {
             leftFront.setPower(power);
             rightFront.setPower(-power);
             leftRear.setPower(power);

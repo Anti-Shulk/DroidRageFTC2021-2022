@@ -27,12 +27,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrain;
+package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -52,9 +50,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue Carousel Side", group="Linear Opmode")
+@Autonomous(name="Blue Carousel Simple", group="Linear Opmode")
 
-public class BlueCarousel_LinearOpMode extends LinearOpMode {
+public class BlueBarrierSimple_LinearOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotorEx leftFront = null;
@@ -95,14 +93,14 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        //Setting Servo Positions
+        leftServo.setPosition(0);
+        rightServo.setPosition(0);
 
-        /*leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
-
-        leftServo.setPosition (0);
-        rightServo.setPosition (0);
+        leftFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -112,54 +110,30 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses PLAY) - Start Line
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
+        // run until the end of the match (driver presses STOP)  -
         while (opModeIsActive()) {
-            move("forward", 700);
-            sleep(200);
 
-            move("left",1);
-            sleep(50);
-
-            leftServo.setPosition (0.28);
-            rightServo.setPosition (0.28);
-            sleep(50);
-
-            otherMotor.setPower(-0.45);
-            sleep(500);
-
-            leftServo.setPosition (0);
-            rightServo.setPosition (0);
-            otherMotor.setPower(0);
-            sleep(50);
-
-            move("right", 1);
-            sleep(50);
-
-            move("backward", 800);
-            sleep(200);
-
-            move("right", 5);
-            sleep(50);
-
-            carouselMotor.setPower(0.5);
-            move("forward", 85);
-            sleep(200);
-
-            carouselMotor.setPower(0);
-            move("left", 5);
+            setPosition("0");
+            move("left", 500);
+            //Turn 90 degrees
+            move("forward", 100);
+            moveStop();
             sleep(100);
 
-            move("forward", 100);
+            move("backward", 90);
+            moveStop();
+
+            move("forward", 900);
             stop();
         }
 
     }
     private void move (String direction, long distance) {
-        double power = 0.7;
+        double power = 0.5;
         if (direction.equals("forward")) {
             leftFront.setPower(power);
             rightFront.setPower(power);
