@@ -177,8 +177,8 @@ public class Auton69 extends LinearOpMode {
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.leftDrive.getCurrentPosition(),
-                        robot.rightDrive.getCurrentPosition()
-                        robot.backrightDrive.getCurrentPosition()
+                        robot.rightDrive.getCurrentPosition(),
+                        robot.backrightDrive.getCurrentPosition(),
                         robot.backleftDrive.getCurrentPosition());
                 telemetry.update();
             }
