@@ -64,7 +64,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Auto Comp1 13266", group="Pushbot")
+@Autonomous(name="Auto duck comp1 13266", group="Beta")
 public class Encoder13266 extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -115,11 +115,28 @@ public class Encoder13266 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -5,  -5, 5.0);
+        encoderDrive(DRIVE_SPEED,  10,  10, 5.0);
+        encoderDrive(DRIVE_SPEED,  -5,  5, 5.0);
+        encoderDrive(0.07,  -11,  -11, 5.0);
+        /*
+        encoderDrive(DRIVE_SPEED,  9,  -9, 5.0);
+        encoderDrive(DRIVE_SPEED,  -8,  -8, 5.0);
+        */
+
         robot.duckMotor.setPower(0.3);
-        encoderDrive(DRIVE_SPEED,  15,  15, 5.0);
-        encoderDrive(TURN_SPEED,   -30, -30, 4.0);
-        encoderDrive(DRIVE_SPEED, 24, 24, 4.0);
+        sleep(5000);
+        robot.duckMotor.setPower(0);
+        encoderDrive(DRIVE_SPEED,  3,  3, 5.0);
+        /*
+        encoderDrive(DRIVE_SPEED,  16,  -16, 5.0);
+        encoderDrive(DRIVE_SPEED,  -20,  -20, 5.0);
+
+         */
+
+        encoderDrive(DRIVE_SPEED,  6,  -6, 5.0);
+        encoderDrive(0.1,  20,  20, 5.0);
+
+
 
 
         telemetry.addData("Path", "Complete");
