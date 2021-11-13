@@ -72,10 +72,10 @@ public class StartDrive extends OpMode{
     @Override
     public void loop() {
         if (gamepad1.right_trigger >= 0.3) {
-            slow = 0.3;
+            slow = 1;
         }
         else{
-            slow = 1;
+            slow = 0.3;
         }
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
