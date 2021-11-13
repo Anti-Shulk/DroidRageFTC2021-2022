@@ -21,7 +21,7 @@ import Programs.Hardware69;
      * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
      */
 
-@TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
+@TeleOp(name="6901 : Start Drive", group="Your MOM")
 public class StartDrive extends OpMode{
 
     /* Declare OpMode members. */
