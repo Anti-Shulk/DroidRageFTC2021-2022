@@ -72,7 +72,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="6901: Auto Drive By Gyro", group="Pushbot")
+@Autonomous(name="6901: Auton 69", group="Pushbot")
 public class Auton69 extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -140,7 +140,7 @@ public class Auton69 extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // Put a hold after each turn
-        gyroDrive(DRIVE_SPEED, 48.0, 0.0);    // Drive FWD 48 inches
+        gyroDrive(DRIVE_SPEED, 30.0, 0.0);    // Drive FWD 48 inches
         /*
         gyroTurn( TURN_SPEED, -45.0);         // Turn  CCW to -45 Degrees
         gyroHold( TURN_SPEED, -45.0, 0.5);    // Hold -45 Deg heading for a 1/2 second
