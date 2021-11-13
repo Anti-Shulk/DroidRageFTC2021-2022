@@ -87,7 +87,7 @@ public class Auton69 extends LinearOpMode {
 
     // These constants define the desired driving/control characteristics
     // The can/should be tweaked to suite the specific robot drive train.
-    static final double     DRIVE_SPEED             = 0.7;     // Nominal speed for better accuracy.
+    static final double     DRIVE_SPEED             = 0.5;     // Nominal speed for better accuracy.
     static final double     TURN_SPEED              = 0.5;     // Nominal half speed for better accuracy.
 
     static final double     HEADING_THRESHOLD       = 1 ;      // As tight as we can make it with an integer gyro
@@ -108,7 +108,8 @@ public class Auton69 extends LinearOpMode {
         // Ensure the robot it stationary, then reset the encoders and calibrate the gyro.
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        robot.backleftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backrightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         // Send telemetry message to alert driver that we are calibrating;
         telemetry.addData(">", "Calibrating Gyro");    //
         telemetry.update();
@@ -126,7 +127,8 @@ public class Auton69 extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        robot.backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Wait for the game to start (Display Gyro value), and reset gyro before we move..
         while (!isStarted()) {
             telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
@@ -188,19 +190,25 @@ public class Auton69 extends LinearOpMode {
             moveCounts = (int)(distance * COUNTS_PER_INCH);
             newLeftTarget = robot.leftDrive.getCurrentPosition() + moveCounts;
             newRightTarget = robot.rightDrive.getCurrentPosition() + moveCounts;
+            newRightTarget = robot.backrightDrive.getCurrentPosition() + moveCounts;
+            newLeftTarget = robot.backleftDrive.getCurrentPosition() + moveCounts;
 
             // Set Target and Turn On RUN_TO_POSITION
             robot.leftDrive.setTargetPosition(newLeftTarget);
             robot.rightDrive.setTargetPosition(newRightTarget);
+            robot.backrightDrive.setTargetPosition(newRightTarget);
+            robot.backleftDrive.setTargetPosition(newLeftTarget);
 
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.backleftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // start motion.
             speed = Range.clip(Math.abs(speed), 0.0, 1.0);
             robot.leftDrive.setPower(speed);
             robot.rightDrive.setPower(speed);
-
+            robot.backrightDrive.setPower(speed);
+            robot.backleftDrive.setPower(speed);
             // keep looping while we are still active, and BOTH motors are running.
             while (opModeIsActive() &&
                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
@@ -226,6 +234,8 @@ public class Auton69 extends LinearOpMode {
 
                 robot.leftDrive.setPower(leftSpeed);
                 robot.rightDrive.setPower(rightSpeed);
+                robot.backleftDrive.setPower(leftSpeed);
+                robot.backrightDrive.setPower(rightSpeed);
 
                 // Display drive status for the driver.
                 telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
@@ -243,6 +253,9 @@ public class Auton69 extends LinearOpMode {
             // Turn off RUN_TO_POSITION
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.backleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         }
     }
 
@@ -291,6 +304,8 @@ public class Auton69 extends LinearOpMode {
         // Stop all motion;
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
+        robot.backrightDrive.setPower(0);
+        robot.backleftDrive.setPower(0);
     }
 
     /**
@@ -328,7 +343,8 @@ public class Auton69 extends LinearOpMode {
         // Send desired speeds to motors.
         robot.leftDrive.setPower(leftSpeed);
         robot.rightDrive.setPower(rightSpeed);
-
+        robot.backrightDrive.setPower(rightSpeed);
+        robot.backleftDrive.setPower(leftSpeed);
         // Display it for the driver.
         telemetry.addData("Target", "%5.2f", angle);
         telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
