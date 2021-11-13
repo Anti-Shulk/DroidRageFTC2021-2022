@@ -118,20 +118,15 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            move("forward", 700);
-            leftFront.setPower(1);
-            sleep(700)
+            move("forward", 800);
+            /*This is kind of what the previous line is saying - Set motor power to 0.5 for 7 sec
+            leftFront.setPower(0.5);
+            sleep(700)*/
             sleep(250);
-            moveStop();
-            sleep(10);
 
-            move("left", 1);
-            sleep(10);
+            move("left", 200);
+            sleep(100);
             moveStop();
-
-            leftServo.setPosition (0.28);
-            rightServo.setPosition (0.28);
-            sleep(50);
 
             otherMotor.setPower(-0.45);
             sleep(500);
@@ -139,18 +134,15 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
             otherMotor.setPower(0);
             leftServo.setPosition (0);
             rightServo.setPosition (0);
-            sleep(5000);
+            sleep(300);
 
-            move("right", 1);
+            move("right", 100);
             sleep(10);
-            moveStop();
-
             move("backward", 800);
             sleep(200);
             moveStop();
-            sleep(10);
 
-            move("right", 5);
+            move("right", 100);
             sleep(50);
             moveStop();
 
@@ -160,7 +152,7 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
             moveStop();
 
             carouselMotor.setPower(0);
-            move("left", 5);
+            move("left", 100);
             sleep(100);
             moveStop();
 
