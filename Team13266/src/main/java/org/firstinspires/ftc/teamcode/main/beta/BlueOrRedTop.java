@@ -64,8 +64,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Auto Comp1 13266", group="Pushbot")
-public class Encoder13266 extends LinearOpMode {
+@Autonomous(name="Blue Or Red Auto for Top", group="Beta")
+public class BlueOrRedTop extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareMapBeta robot   = new HardwareMapBeta();   // Use a Pushbot's hardware
@@ -75,7 +75,7 @@ public class Encoder13266 extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 5.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.3;
     static final double     TURN_SPEED              = 0.1;
 
@@ -106,8 +106,8 @@ public class Encoder13266 extends LinearOpMode {
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          robot.leftFront.getCurrentPosition(),
-                          robot.leftFront.getCurrentPosition());
+                robot.leftFront.getCurrentPosition(),
+                robot.leftFront.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -115,11 +115,9 @@ public class Encoder13266 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -5,  -5, 5.0);
-        robot.duckMotor.setPower(0.3);
-        encoderDrive(DRIVE_SPEED,  15,  15, 5.0);
-        encoderDrive(TURN_SPEED,   -30, -30, 4.0);
-        encoderDrive(DRIVE_SPEED, 24, 24, 4.0);
+        encoderDrive(DRIVE_SPEED,  30,  30, 5.0);
+
+
 
 
         telemetry.addData("Path", "Complete");
@@ -176,14 +174,14 @@ public class Encoder13266 extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.leftFront.isBusy() && robot.rightFront.isBusy())) {
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.leftFront.isBusy() && robot.rightFront.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            robot.leftFront.getCurrentPosition(),
-                                            robot.rightFront.getCurrentPosition());
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition());
                 telemetry.update();
             }
 

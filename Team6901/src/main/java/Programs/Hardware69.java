@@ -94,10 +94,10 @@ public class Hardware69
 
             // Set all motors to run without encoders.
             // May want to use RUN_USING_ENCODERS if encoders are installed.
-            leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
             Arm.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
