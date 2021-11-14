@@ -50,7 +50,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue Carousel Simple", group="Linear Opmode")
+@Autonomous(name="Red Carousel Simple", group="Linear Opmode")
 
 public class RedCarouselSimple_LinearOpMode extends LinearOpMode {
 
@@ -118,20 +118,22 @@ public class RedCarouselSimple_LinearOpMode extends LinearOpMode {
         while (opModeIsActive()) {
 
             setPosition("0");
-            move("left", 490);
+            move("forward", 90);
+            move("left", 190);
             //Turn 90 degrees
-            move("forward", 1050);
+            move("forward", 1400);
             moveStop();
-            sleep(100);
+            move("left", 30);
+            move("forward", 45);
+            moveStop();
 
-            carouselMotor.setPower(0.5);
-            carouselMotor.setPower(0.5);
-            sleep(800);
+            carouselMotor.setPower(0.4);
+            carouselMotor.setPower(0.4);
+            sleep(1800);
 
-            move("backward", 120);
-
-            move("right", 490);
-            move("forward", 900);
+            move("backward", 20);
+            move("right", 410);
+            move("forward", 670);
             stop();
         }
 

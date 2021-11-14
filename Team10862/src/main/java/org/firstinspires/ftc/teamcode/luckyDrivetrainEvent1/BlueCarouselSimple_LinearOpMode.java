@@ -118,19 +118,19 @@ public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
         while (opModeIsActive()) {
 
             setPosition("0");
-            move("right", 490);
+            move("right", 440);
             move("forward", 1050);
             moveStop();
             sleep(100);
 
-            carouselMotor.setPower(0.5);
-            carouselMotor.setPower(0.5);
-            sleep(800);
+            carouselMotor.setPower(0.4);
+            carouselMotor.setPower(0.4);
+            sleep(1800);
 
             move("backward", 120);
 
-            move("left", 490);
-            move("forward", 900);
+            move("left", 425);
+            move("forward", 670);
             stop();
         }
 
