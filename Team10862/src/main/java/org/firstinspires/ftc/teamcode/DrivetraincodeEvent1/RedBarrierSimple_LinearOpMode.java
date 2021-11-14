@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
+package org.firstinspires.ftc.teamcode.DrivetraincodeEvent1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue Barrier Simple", group="Linear Opmode")
+@Autonomous(name="Red Barrier Simple", group="Linear Opmode")
 
-public class BlueBarrierSimple_LinearOpMode extends LinearOpMode {
+public class RedBarrierSimple_LinearOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotorEx leftFront = null;
@@ -121,7 +121,6 @@ public class BlueBarrierSimple_LinearOpMode extends LinearOpMode {
             move("forward", 1500);
             stop();
         }
-
     }
     private void move (String direction, long distance) {
         double power = 0.5;
