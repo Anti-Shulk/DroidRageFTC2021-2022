@@ -50,9 +50,9 @@ import java.util.List;
  */
 @Config
 public class Drive13266 extends com.acmerobotics.roadrunner.drive.TankDrive {
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(4, 0, 0);
-    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(4, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(2.3, 0, 0);
+    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
