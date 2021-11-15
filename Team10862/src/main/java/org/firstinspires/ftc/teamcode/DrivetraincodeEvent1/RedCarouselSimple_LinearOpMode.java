@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
+package org.firstinspires.ftc.teamcode.DrivetraincodeEvent1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue Carousel Simple", group="Linear Opmode")
+@Autonomous(name="Red Carousel Simple", group="Linear Opmode")
 
-public class RedBarrierSimple_LinearOpMode extends LinearOpMode {
+public class RedCarouselSimple_LinearOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotorEx leftFront = null;
@@ -118,16 +118,22 @@ public class RedBarrierSimple_LinearOpMode extends LinearOpMode {
         while (opModeIsActive()) {
 
             setPosition("0");
-            move("right", 500);
+            move("forward", 90);
+            move("left", 190);
             //Turn 90 degrees
-            move("forward", 100);
+            move("forward", 1400);
             moveStop();
-            sleep(100);
-
-            move("backward", 90);
+            move("left", 30);
+            move("forward", 45);
             moveStop();
 
-            move("forward", 900);
+            carouselMotor.setPower(0.4);
+            carouselMotor.setPower(0.4);
+            sleep(1800);
+
+            move("backward", 20);
+            move("right", 410);
+            move("forward", 670);
             stop();
         }
 

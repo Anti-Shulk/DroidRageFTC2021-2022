@@ -27,10 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
+package org.firstinspires.ftc.teamcode.DrivetraincodeEvent1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -51,10 +50,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue Carousel Side", group="Linear Opmode")
-@Disabled
+@Autonomous(name="Blue Carousel Simple", group="Linear Opmode")
 
-public class BlueCarousel_LinearOpMode extends LinearOpMode {
+public class BlueCarouselSimple_LinearOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotorEx leftFront = null;
@@ -69,7 +67,6 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
 
     @Override
     @SuppressWarnings("FieldCanBeLocal")
-
 
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -96,14 +93,14 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
         otherMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        //Setting Servo Positions
+        leftServo.setPosition(0);
+        rightServo.setPosition(0);
 
-        /*leftFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);*/
-
-        leftServo.setPosition (0.28);
-        rightServo.setPosition (0.28);
+        leftFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         // Adjusting the Zero Power Behavior changes how the motors behaved when a
         // Power of 0 is applied.
@@ -113,51 +110,27 @@ public class BlueCarousel_LinearOpMode extends LinearOpMode {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses PLAY) - Start Line
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
+        // run until the end of the match (driver presses STOP)  -
         while (opModeIsActive()) {
-            move("forward", 800);
-            /*This is kind of what the previous line is saying - Set motor power to 0.5 for 7 sec
-            leftFront.setPower(0.5);
-            sleep(700)*/
-            sleep(250);
 
-            move("left", 200);
+            setPosition("0");
+            move("right", 440);
+            move("forward", 1050);
+            moveStop();
             sleep(100);
-            moveStop();
 
-            otherMotor.setPower(-0.45);
-            sleep(500);
+            carouselMotor.setPower(0.4);
+            carouselMotor.setPower(0.4);
+            sleep(1800);
 
-            otherMotor.setPower(0);
-            leftServo.setPosition (0);
-            rightServo.setPosition (0);
-            sleep(300);
+            move("backward", 120);
 
-            move("right", 100);
-            sleep(10);
-            move("backward", 800);
-            sleep(200);
-            moveStop();
-
-            move("right", 100);
-            sleep(50);
-            moveStop();
-
-            carouselMotor.setPower(0.5);
-            move("forward", 85);
-            sleep(200);
-            moveStop();
-
-            carouselMotor.setPower(0);
-            move("left", 100);
-            sleep(100);
-            moveStop();
-
-            move("forward", 100);
+            move("left", 425);
+            move("forward", 670);
             stop();
         }
 

@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.luckyDrivetrainEvent1;
+package org.firstinspires.ftc.teamcode.DrivetraincodeEvent1;
 //Package is telling us where to find this specific code
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -215,7 +215,7 @@ public class Gamepad_BasicOpMode_Linear10862_practicedrivetrain extends LinearOp
             }
             //outtake
             if (gamepad1.left_bumper) {
-                otherMotor.setPower(-0.65);
+                otherMotor.setPower(-0.45);
             }
 
             // ! means not
