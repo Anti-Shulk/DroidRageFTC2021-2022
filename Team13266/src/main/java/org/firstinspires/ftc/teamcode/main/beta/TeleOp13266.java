@@ -222,8 +222,9 @@ public class TeleOp13266 extends OpMode {
         }
         // intake/reset position
         if (gamepad2.dpad_left) {
-            setPosition(-0.25);
-            robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setPosition(-0.3
+
+            );
             robot.boxServo.setPosition(BOX_SERVO_INTAKE);
         }
         if (gamepad2.a) {
