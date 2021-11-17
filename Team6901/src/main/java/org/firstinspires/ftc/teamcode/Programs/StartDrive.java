@@ -89,6 +89,10 @@ public void setPosition(double pos){
 
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
+
+
+
+
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
@@ -102,6 +106,7 @@ public void setPosition(double pos){
         //   intake.SetPower (intakeSpeed);
         // Use gamepad left & right trigger to open and close the intake
         // CLose
+        if (gamepad1.right_bumper) {
         if (gamepad1.right_bumper) {
             robot.intake.setPower(1);
         }
@@ -149,15 +154,23 @@ public void setPosition(double pos){
 
         //arm
 
-        if (gamepad2.left_stick_y) {
+           if (gamepad2.left_stick_y) {
             robot.Arm.setPower(-0.4);
         }
         if (-gamepad2.left_stick_y) {
             robot.Arm.setPower(0);
         }
-        if (!gamepad2.left_stick_y && !-gamepad2.left_stick_y {
+        if (!gamepad2.left_stick_y && !-gamepad2.left_stick_y) {
             robot.Arm.setPower(-0.2);
         }
+
+
+
+
+
+
+
+
 /*
     robot.Arm.setVelocity(gamepad2.left_stick_y);
     final double ARM_SPEED = 500;
