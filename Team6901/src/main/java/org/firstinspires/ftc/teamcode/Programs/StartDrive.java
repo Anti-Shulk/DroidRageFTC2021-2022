@@ -149,13 +149,13 @@ public void setPosition(double pos){
 
         //arm
 
-        if (gamepad2.dpad_up) {
+        if (gamepad2.left_stick_y) {
             robot.Arm.setPower(-0.4);
         }
-        if (gamepad2.dpad_down) {
+        if (-gamepad2.left_stick_y) {
             robot.Arm.setPower(0);
         }
-        if (!gamepad2.dpad_up && !gamepad2.dpad_down) {
+        if (!gamepad2.left_stick_y && !-gamepad2.left_stick_y {
             robot.Arm.setPower(-0.2);
         }
 /*
