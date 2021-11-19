@@ -60,10 +60,10 @@ public class Hardware69
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
-        rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        backleftDrive = hwMap.get(DcMotor.class, "BL_drive");
-        backrightDrive = hwMap.get(DcMotor.class, "BR_drive");
+        leftDrive  = hwMap.get(DcMotor.class, "leftFront");
+        rightDrive = hwMap.get(DcMotor.class, "rightFront");
+        backleftDrive = hwMap.get(DcMotor.class, "leftRear");
+        backrightDrive = hwMap.get(DcMotor.class, "rightRear");
         Arm    = hwMap.get(DcMotorEx.class, "arm");
         Carousel = hwMap.get(DcMotor.class, "Rotate");
         intake = hwMap.get(DcMotor.class, "intake");
@@ -71,6 +71,8 @@ public class Hardware69
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         backrightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        backleftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+
         Arm.setDirection(DcMotorSimple.Direction.REVERSE);
         Carousel.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.FORWARD);
